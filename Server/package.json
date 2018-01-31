@@ -1,0 +1,11 @@
+{
+  "name": "milleniumplanning",
+  "version": "1.0.0",
+  "description": "An app to easily plan, schedule, and track work in an organisation.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rakhitha",
+  "license": "ISC"
+}
