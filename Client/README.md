@@ -1,6 +1,6 @@
-# client
+# milleniumplanning
 
-> An app to easily plan, schedule, and track work in an organisation.
+> A web app to easily plan, schedule, and track work in an organisation.
 
 ## Build Setup
 
