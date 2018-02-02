@@ -3,6 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuetify from 'vuetify'
+
+import '../node_modules/vuetify/dist/vuetify.css'
+import '../node_modules/vuetify/dist/vuetify.min.css'
+import '../node_modules/mdi/css/materialdesignicons.css'
+
+Vue.use(Vuetify);
 
 Vue.config.productionTip = false
 
