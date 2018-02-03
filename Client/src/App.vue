@@ -26,7 +26,10 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
         <v-btn flat v-for="item in toolbarItems"
-               :key="item.title">
+               :key="item.title"
+               router
+               :to="item.link"
+        >
           <v-icon left>{{item.icon}}</v-icon>
           {{item.title}}
         </v-btn>
@@ -36,6 +39,8 @@
       <router-view></router-view>
     </main>
     <v-footer>
+      <span>{{new Date().getFullYear()}}</span>
+      <v-spacer></v-spacer>
       <span> © Rakhitha Ranathunge</span>
     </v-footer>
   </v-app>
@@ -53,7 +58,7 @@ export default {
   computed: {
     toolbarItems() {
       let toolbarItems = [
-        {title: "Register", icon: "mdi-account-plus"},
+        {title: "Register", icon: "mdi-account-plus", link:"/register"},
         {title: "View Projects", icon: "mdi-file-find"},
         {title: "Login", icon: "mdi-login-variant"}
       ];
