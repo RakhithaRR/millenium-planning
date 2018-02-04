@@ -21,7 +21,7 @@
       ></v-toolbar-side-icon>
       <v-toolbar-title>
         <v-icon>mdi-chart-areaspline</v-icon>
-        {{title}}
+        <router-link to="/" tag="span" style="cursor: pointer">{{title}}</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">

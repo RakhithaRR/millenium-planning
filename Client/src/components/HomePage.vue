@@ -9,12 +9,14 @@
           class="white--text"
         >
           <!--<img src="assets/vuetify.png" alt="Vuetify.js" height="200">-->
-          <h1 class="white--text mb-2 display-3 text-xs-center">Millennium Planning</h1>
+          <h1 id='mainh' class="white--text mb-2 display-3 text-xs-center">Millennium Planning</h1>
           <div class="subheading mb-3 text-xs-center">Easily plan, schedule, and track your projects.</div>
           <v-btn
             class="dark mt-5"
             dark
             large
+            router
+            :to="'/register'"
           >
             Get Started
           </v-btn>
@@ -92,9 +94,14 @@
 
     data () {
       return {
-
       }
     }
   }
 
 </script>
+
+<style scoped>
+  h1{
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+</style>
