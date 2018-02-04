@@ -34,6 +34,8 @@
           <v-select
             label="Department"
             single-line
+            v-bind:items="departments"
+            v-model="department"
             bottom
             required
           ></v-select>
@@ -41,11 +43,13 @@
             label="Enter your password"
             hint="At least 8 characters"
             v-model="password"
+            :rules="passRules"
             min="8"
             :append-icon="pass1 ? 'visibility' : 'visibility_off'"
             :append-icon-cb="() => (pass1 = !pass1)"
             :type="pass1 ? 'password' : 'text'"
             counter
+            required
           ></v-text-field>
           <v-text-field
             label="Confirm the password"
@@ -55,6 +59,7 @@
             :append-icon-cb="() => (pass2 = !pass2)"
             :type="pass2 ? 'password' : 'text'"
             counter
+            required
           ></v-text-field>
           <div>
             <v-btn dark>Submit</v-btn>
@@ -79,6 +84,9 @@
         pass2: true,
         password: '',
         cPassword: '',
+        passRules: [
+          (v) => !!v || 'Password is required',
+        ],
 
         name: '',
         nameRules: [
@@ -99,6 +107,9 @@
         desigRules: [
           (v) => !!v || 'Designation is required',
         ],
+
+        department: '',
+        departments: ['Human Resources', 'Information Technology', 'Management']
       }
     },
     methods: {
