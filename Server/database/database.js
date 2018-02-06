@@ -9,7 +9,7 @@ var config = {
     messagingSenderId: "270940786181"
 };
 
-const app = firebase.initializeApp(config);
-const db = app.database();
+const connection = firebase.initializeApp(config);
+const db = connection.database();
 
 exports.database = db;
