@@ -64,7 +64,7 @@ export default {
       let toolbarItems = [
         {title: "Register", icon: "mdi-account-plus", link:"/register"},
         {title: "View Projects", icon: "mdi-file-find"},
-        {title: "Login", icon: "mdi-login-variant"}
+        {title: "Login", icon: "mdi-login-variant", link: "/login"}
       ];
       return toolbarItems;
     }

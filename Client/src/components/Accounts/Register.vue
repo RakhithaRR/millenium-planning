@@ -178,6 +178,7 @@
             this.successCond = true;
             this.existCond = false;
             this.failCond = false;
+            this.$router.push('/login');
           }
           else if(response.data.message === "Username taken"){
             this.successMessage = "Username taken. Please enter another username.";
