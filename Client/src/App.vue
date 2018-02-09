@@ -5,8 +5,12 @@
       absolute
       v-model="sideNav">
       <v-list>
-        <v-list-tile v-for="item in toolbarItems"
-                     :key="item.title">
+        <v-list-tile
+          v-for="item in toolbarItems"
+          :key="item.title"
+          router
+          :to="item.link"
+        >
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>

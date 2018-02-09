@@ -101,7 +101,4 @@
 </script>
 
 <style scoped>
-  h1{
-    font-family: "Helvetica Neue", Arial, sans-serif;
-  }
 </style>
