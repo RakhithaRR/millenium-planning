@@ -10,10 +10,6 @@
         {{successMessage}}
       </v-alert>
 
-      <v-alert color="warning" icon="priority_high" value="true" transition="scale-transition" v-show="existCond">
-        {{successMessage}}
-      </v-alert>
-
       <v-card style="padding: 50px">
         <v-card-title primary-title class="layout justify-center">
           <div class="headline text-xs-center"><b>SignUp with Millennium Planning</b></div>
@@ -157,7 +153,6 @@
         successMessage: '',
         successCond: false,
         failCond: false,
-        existCond: false
 
       }
     },
@@ -173,25 +168,18 @@
           password: this.password
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
-          if(response.data.message === "User registered successfully"){
+          if(response.data.success){
             this.successMessage = "User registered successfully";
             this.successCond = true;
-            this.existCond = false;
             this.failCond = false;
             this.$router.push('/login');
           }
-          else if(response.data.message === "Username taken"){
-            this.successMessage = "Username taken. Please enter another username.";
-            this.failCond = false;
-            this.existCond = true;
-            this.successCond = false;
-          }
-          else if(response.data.message === "Server error. Please try again"){
-            this.successMessage = "Server error. Please try again";
+          else{
+            this.successMessage = response.data.message;
             this.failCond = true;
-            this.existCond = false;
             this.successCond = false;
           }
+
           console.log(response.data.message);
         }).catch((error) => {
           console.log("Error: "+error);

@@ -8,43 +8,91 @@ router.get('/check', function(req, res, next) {
 });
 
 router.post('/register', (req,res,next) => {
-    var userID = req.body.userName;
-
-    function existsCallback(exists) {
-        if(!exists){
-            var userRef = firebase.database.ref('users/' +userID);
-            userRef.set({
+    // var userID = req.body.userName;
+    //
+    // function existsCallback(exists) {
+    //     if(!exists){
+    //         var userRef = firebase.database.ref('users/' +userID);
+    //         userRef.set({
+    //             Type: req.body.type,
+    //             Name: req.body.name,
+    //             Email: req.body.email,
+    //             Designation: req.body.designation,
+    //             Department: req.body.department,
+    //             Password: req.body.password
+    //         }, (error,results) => {
+    //             if(error){
+    //                 console.log(error);
+    //                 res.json({success: false, message: "Server error. Please try again"});
+    //             }
+    //             else{
+    //                 res.json({success: true, message: "User registered successfully"});
+    //             }
+    //         });
+    //     }
+    //     else{
+    //         console.log('Username taken');
+    //         res.json({success: false, message:'Username taken'});
+    //     }
+    // }
+    //
+    //
+    // var userRef = firebase.database.ref('users');
+    // userRef.child(userID).once('value', (snapshot) => {
+    //     exists = (snapshot.val() !== null);
+    //     existsCallback(exists);
+    // });
+    var userRef = firebase.database.ref('users');
+    firebase.authentication.createUserWithEmailAndPassword(req.body.email, req.body.password)
+        .then((result) => {
+            userRef.child(result.uid).set({
                 Type: req.body.type,
                 Name: req.body.name,
-                Email: req.body.email,
+                Username: req.body.userName,
                 Designation: req.body.designation,
                 Department: req.body.department,
-                Password: req.body.password
-            }, (error,results) => {
-                if(error){
-                    console.log(error);
-                    res.json({success: false, message: "Server error. Please try again"});
-                }
-                else{
-                    res.json({success: true, message: "User registered successfully"});
-                }
             });
-        }
-        else{
-            console.log('Username taken');
-            res.json({success: false, message:'Username taken'});
-        }
-    }
+            res.json({success: true, message: "User registered successfully"});
+        })
+        .catch((err) => {
+            var code = err.code;
+            var errMessage = err.message;
+            if(code === 'auth/email-already-in-use'){
+                res.json({success: false, message: "Email already in use"});
+            }
+            else{
+                res.json({success: false, message: errMessage});
+            }
+        });
 
 
-    var userRef = firebase.database.ref('users');
-    userRef.child(userID).once('value', (snapshot) => {
-        exists = (snapshot.val() !== null);
-        existsCallback(exists);
+});
+
+router.post('/login', (req,res) => {
+    // firebase.authentication.signOut().then(function(result) {
+    //     console.log(result);
+    //     res.json({success: true, message:"Signed out"})
+    // }).catch(function(error) {
+    //     // An error happened.
+    //     console.log(error);
+    // });
+   var userRef = firebase.database.ref('users');
+    firebase.authentication.signInWithEmailAndPassword(req.body.email, req.body.password)
+        .then((result) => {
+            res.json({success: true, message: 'User logged in successfully'});
+            console.log(result.providerData);
+
+        })
+        .catch((error) => {
+            var code = error.code;
+            if(code === "auth/wrong-password"){
+                res.json({success: false, message: "Incorrect password"});
+            }
+            else {
+                res.json({success: false, message: error.message});
+            }
+
     });
-
-
-
 
 });
 

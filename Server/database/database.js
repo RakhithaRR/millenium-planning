@@ -11,5 +11,7 @@ var config = {
 
 const connection = firebase.initializeApp(config);
 const db = connection.database();
+const auth = connection.auth();
 
 exports.database = db;
+exports.authentication = auth;
