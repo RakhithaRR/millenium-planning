@@ -83,8 +83,14 @@ export default {
         {title: "Register", icon: "mdi-account-plus", link:"/register"},
         {title: "View Projects", icon: "mdi-file-find"},
         {title: "Login", icon: "mdi-login-variant", link: "/login"},
-
       ];
+
+      if(localStorage.getItem("user")){
+        var user = JSON.parse(localStorage.getItem('user'));
+        if(user.type === "Admin"){
+          
+        }
+      }
 
 
       return toolbarItems;
@@ -114,6 +120,9 @@ export default {
       this.$router.push('/');
       location.reload();
     }
+  },
+
+  mounted: {
   }
 }
 </script>

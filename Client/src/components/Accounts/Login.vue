@@ -82,9 +82,10 @@
               this.progress = false;
               console.log(response.data.message);
               console.log(response.data.user);
+              localStorage.setItem("user",JSON.stringify(response.data.user));
               localStorage.setItem("token",response.data.token);
               this.$router.push('/');
-//              location.reload();
+              location.reload();
             }
             else{
               this.failCond = true;
