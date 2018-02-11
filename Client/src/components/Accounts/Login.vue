@@ -35,6 +35,9 @@
             @click="login"
           >Login</v-btn>
         </div>
+        <div class="layout justify-center" v-show="progress">
+          <v-progress-linear v-bind:indeterminate="true" color="black"></v-progress-linear>
+        </div>
       </v-card>
 
     </v-flex>
@@ -61,26 +64,36 @@
         ],
 
         failCond: false,
-        successMessage: ''
+        successMessage: '',
+        progress: false,
       }
     },
 
     methods: {
       login() {
+        this.failCond = false;
+        this.progress = true;
         axios.post('http://localhost:3000/users/login',{
           email: this.email,
           password: this.password
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
             if(response.data.success){
+              this.progress = false;
               console.log(response.data.message);
+              console.log(response.data.user);
+              localStorage.setItem("token",response.data.token);
+              this.$router.push('/');
+//              location.reload();
             }
             else{
               this.failCond = true;
+              this.progress = false;
               this.successMessage = response.data.message;
             }
           })
           .catch((err) => {
+            this.progress = false;
             console.log(err);
           })
       }

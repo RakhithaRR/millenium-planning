@@ -1,5 +1,6 @@
 <template>
   <v-app>
+
     <v-navigation-drawer
       temporary
       absolute
@@ -16,8 +17,16 @@
           </v-list-tile-action>
           <v-list-tile-content>{{item.title}}</v-list-tile-content>
         </v-list-tile>
+        <v-btn
+          v-show="signedIn"
+          @click="logout"
+        >
+          <v-icon>mdi-logout</v-icon>
+          Logout
+        </v-btn>
       </v-list>
     </v-navigation-drawer>
+
     <v-toolbar dark color="dark">
       <v-toolbar-side-icon
         @click.native="sideNav = !sideNav"
@@ -37,8 +46,16 @@
           <v-icon left>{{item.icon}}</v-icon>
           {{item.title}}
         </v-btn>
+        <v-btn
+          v-show="signedIn"
+          @click="logout"
+        >
+          <v-icon>mdi-logout</v-icon>
+          Logout
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+
     <main>
       <router-view></router-view>
     </main>
@@ -51,6 +68,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
 export default {
   data () {
     return {
@@ -64,9 +82,37 @@ export default {
       let toolbarItems = [
         {title: "Register", icon: "mdi-account-plus", link:"/register"},
         {title: "View Projects", icon: "mdi-file-find"},
-        {title: "Login", icon: "mdi-login-variant", link: "/login"}
+        {title: "Login", icon: "mdi-login-variant", link: "/login"},
+
       ];
+
+
       return toolbarItems;
+    },
+
+    signedIn(){
+      if(localStorage.getItem("token")){
+        return true
+      }
+      else{
+        return false
+      }
+    }
+  },
+
+  methods: {
+    logout() {
+      localStorage.setItem("token",null);
+      localStorage.clear();
+      axios.post('http://localhost:3000/users/logout',{headers: {'Content-Type': 'application/json'}})
+        .then((response) =>{
+        console.log("Logged out");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      this.$router.push('/');
+      location.reload();
     }
   }
 }

@@ -79,8 +79,15 @@ router.post('/login', (req,res) => {
    var userRef = firebase.database.ref('users');
     firebase.authentication.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then((result) => {
-            res.json({success: true, message: 'User logged in successfully'});
-            console.log(result.providerData);
+            firebase.authentication.currentUser.getIdToken(true)
+                .then((token) => {
+                    userRef.child(result.uid).on("value", (snapshot) => {
+                        console.log(snapshot.val());
+                        res.json({success: true, message: 'User logged in successfully', token: token, user: snapshot.val()});
+                    });
+                });
+            // res.json({success: true, message: 'User logged in successfully'});
+            // console.log(result.providerData);
 
         })
         .catch((error) => {
@@ -94,6 +101,17 @@ router.post('/login', (req,res) => {
 
     });
 
+});
+
+router.post('/logout',(req,res,next) => {
+    firebase.authentication.signOut()
+        .then(() => {
+            res.json({success: true, message: "Signed out"})
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json({success: false, message: err.message});
+        });
 });
 
 router.post('/search', (req,res) => {
