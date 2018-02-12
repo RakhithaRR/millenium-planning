@@ -43,29 +43,42 @@ router.post('/register', (req,res,next) => {
     //     existsCallback(exists);
     // });
     var userRef = firebase.database.ref('users');
-    firebase.authentication.createUserWithEmailAndPassword(req.body.email, req.body.password)
-        .then((result) => {
-            userRef.child(result.uid).set({
-                Type: req.body.type,
-                Name: req.body.name,
-                Username: req.body.userName,
-                Designation: req.body.designation,
-                Department: req.body.department,
-            });
-            res.json({success: true, message: "User registered successfully"});
-        })
-        .catch((err) => {
-            var code = err.code;
-            var errMessage = err.message;
-            if(code === 'auth/email-already-in-use'){
-                res.json({success: false, message: "Email already in use"});
-            }
-            else{
-                res.json({success: false, message: errMessage});
-            }
-        });
+    function usernameExists(exists) {
+        if(exists){
+            res.json({success: false, message:"Username already taken"});
+        }
+        else{
+            firebase.authentication.createUserWithEmailAndPassword(req.body.email, req.body.password)
+                .then((result) => {
+                    userRef.child(result.uid).set({
+                        Type: req.body.type,
+                        Name: req.body.name,
+                        Username: req.body.userName,
+                        Designation: req.body.designation,
+                        Department: req.body.department,
+                    });
+                    res.json({success: true, message: "User registered successfully"});
+                })
+                .catch((err) => {
+                    var code = err.code;
+                    var errMessage = err.message;
+                    if(code === 'auth/email-already-in-use'){
+                        res.json({success: false, message: "Email already in use"});
+                    }
+                    else{
+                        res.json({success: false, message: errMessage});
+                    }
+                });
+        }
+
+    }
 
 
+    userRef.orderByChild("Username").equalTo(req.body.userName).once("value", (snapshot) => {
+        var exists = (snapshot.val() !== null);
+        usernameExists(exists);
+
+    })
 });
 
 router.post('/login', (req,res) => {

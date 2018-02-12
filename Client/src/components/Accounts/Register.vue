@@ -172,7 +172,7 @@
             this.successMessage = "User registered successfully";
             this.successCond = true;
             this.failCond = false;
-            this.$router.push('/login');
+            this.$router.push('/');
           }
           else{
             this.successMessage = response.data.message;
