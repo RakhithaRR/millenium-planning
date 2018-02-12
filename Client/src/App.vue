@@ -17,13 +17,15 @@
           </v-list-tile-action>
           <v-list-tile-content>{{item.title}}</v-list-tile-content>
         </v-list-tile>
-        <v-btn
+        <v-list-tile
           v-show="signedIn"
           @click="logout"
         >
-          <v-icon>mdi-logout</v-icon>
-          Logout
-        </v-btn>
+          <v-list-tile-action>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>Logout</v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
@@ -87,9 +89,28 @@ export default {
 
       if(localStorage.getItem("user")){
         var user = JSON.parse(localStorage.getItem('user'));
-        if(user.type === "Admin"){
-          
+        console.log(user);
+        if(user.Type === "Admin"){
+          toolbarItems = [
+            {title: "Register", icon: "mdi-account-plus", link:"/register"},
+            {title: "View Projects", icon: "mdi-file-find"},
+//            {title: "Login", icon: "mdi-login-variant", link: "/login"},
+          ]
         }
+        else if(user.Type === "Normal User"){
+          toolbarItems = [
+//            {title: "Register", icon: "mdi-account-plus", link:"/register"},
+            {title: "View Projects", icon: "mdi-file-find"},
+//            {title: "Login", icon: "mdi-login-variant", link: "/login"},
+          ]
+        }
+      }
+      else{
+        toolbarItems = [
+//            {title: "Register", icon: "mdi-account-plus", link:"/register"},
+//            {title: "View Projects", icon: "mdi-file-find"},
+          {title: "Login", icon: "mdi-login-variant", link: "/login"},
+        ]
       }
 
 
@@ -122,8 +143,6 @@ export default {
     }
   },
 
-  mounted: {
-  }
 }
 </script>
 

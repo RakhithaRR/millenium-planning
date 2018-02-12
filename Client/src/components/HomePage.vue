@@ -16,7 +16,7 @@
             dark
             large
             router
-            :to="'/register'"
+            :to="'/login'"
           >
             Get Started
           </v-btn>
