@@ -6,7 +6,7 @@
         <v-tabs-bar class="black" dark>
           <v-tabs-slider class="red"></v-tabs-slider>
           <v-tabs-item href="profile">
-            Profile Details
+            Profile
           </v-tabs-item>
           <v-tabs-item href="projects">
             Projects
@@ -18,9 +18,30 @@
               <v-card-title class="layout justify-center">
                 <h2 class="display-1"><b>User Details</b></h2>
               </v-card-title>
-              <v-card-text>
-                <h4 class="headline">User Type: {{user.Type}}</h4>
-              </v-card-text>
+              <v-list>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title class="layout justify-center">
+                      User Type: {{user.Type}}
+                    </v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title class="layout justify-center">
+                      Name: {{user.Name}}
+                    </v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile>
+                  <v-list-tile-content>
+                    <v-list-tile-title class="layout justify-center">
+                      Username: {{user.Username}}
+                    </v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+
+              </v-list>
             </v-card>
           </v-tabs-content>
           <v-tabs-content id="projects">
