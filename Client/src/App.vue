@@ -85,6 +85,7 @@ export default {
         {title: "Register", icon: "mdi-account-plus", link:"/register"},
         {title: "View Projects", icon: "mdi-file-find"},
         {title: "Login", icon: "mdi-login-variant", link: "/login"},
+        {title: "Profile", icon: "", link: "/Profile"},
       ];
 
       if(localStorage.getItem("user")){
@@ -94,6 +95,7 @@ export default {
           toolbarItems = [
             {title: "Register", icon: "mdi-account-plus", link:"/register"},
             {title: "View Projects", icon: "mdi-file-find"},
+            {title: user.Name.split(" ")[0], icon: "mdi-account-key", link: "/Profile/"+user.Username},
 //            {title: "Login", icon: "mdi-login-variant", link: "/login"},
           ]
         }
@@ -101,6 +103,7 @@ export default {
           toolbarItems = [
 //            {title: "Register", icon: "mdi-account-plus", link:"/register"},
             {title: "View Projects", icon: "mdi-file-find"},
+            {title: user.Name.split(" ")[0], icon: "mdi-account", link: "/Profile/"+user.Username},
 //            {title: "Login", icon: "mdi-login-variant", link: "/login"},
           ]
         }

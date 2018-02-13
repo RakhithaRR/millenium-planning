@@ -8,40 +8,7 @@ router.get('/check', function(req, res, next) {
 });
 
 router.post('/register', (req,res,next) => {
-    // var userID = req.body.userName;
-    //
-    // function existsCallback(exists) {
-    //     if(!exists){
-    //         var userRef = firebase.database.ref('users/' +userID);
-    //         userRef.set({
-    //             Type: req.body.type,
-    //             Name: req.body.name,
-    //             Email: req.body.email,
-    //             Designation: req.body.designation,
-    //             Department: req.body.department,
-    //             Password: req.body.password
-    //         }, (error,results) => {
-    //             if(error){
-    //                 console.log(error);
-    //                 res.json({success: false, message: "Server error. Please try again"});
-    //             }
-    //             else{
-    //                 res.json({success: true, message: "User registered successfully"});
-    //             }
-    //         });
-    //     }
-    //     else{
-    //         console.log('Username taken');
-    //         res.json({success: false, message:'Username taken'});
-    //     }
-    // }
-    //
-    //
-    // var userRef = firebase.database.ref('users');
-    // userRef.child(userID).once('value', (snapshot) => {
-    //     exists = (snapshot.val() !== null);
-    //     existsCallback(exists);
-    // });
+
     var userRef = firebase.database.ref('users');
     function usernameExists(exists) {
         if(exists){
@@ -82,13 +49,7 @@ router.post('/register', (req,res,next) => {
 });
 
 router.post('/login', (req,res) => {
-    // firebase.authentication.signOut().then(function(result) {
-    //     console.log(result);
-    //     res.json({success: true, message:"Signed out"})
-    // }).catch(function(error) {
-    //     // An error happened.
-    //     console.log(error);
-    // });
+
    var userRef = firebase.database.ref('users');
     firebase.authentication.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then((result) => {
