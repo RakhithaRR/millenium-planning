@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var firebaseSDK = require('firebase');
 
 const firebase = require('../database/database');
+
+
 
 router.get('/check', function(req, res, next) {
     res.send('User endpoint');
@@ -53,6 +56,8 @@ router.post('/login', (req,res) => {
    var userRef = firebase.database.ref('users');
     firebase.authentication.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then((result) => {
+        // var loggedUser = firebase.authentication.currentUser;
+        // console.log(loggedUser);
             firebase.authentication.currentUser.getIdToken(true)
                 .then((token) => {
                     userRef.child(result.uid).on("value", (snapshot) => {
@@ -88,13 +93,37 @@ router.post('/logout',(req,res,next) => {
         });
 });
 
-router.post('/search', (req,res) => {
-    var users = firebase.database.ref('users');
-    users.orderByChild('NIC').equalTo('432432432V').on("child_added", (res) => {
-        console.log(res.key.length);
+router.post('/update', (req,res,next) => {
+    // firebase.authentication.onAuthStateChanged((userObj) => {
+    //     if(userObj){
+    //         console.log('Success' +userObj);
+    //     }
+    //     else{
+    //         console.log('Fail '+userObj);
+    //     }
+    // });
+    // console.log(user);
+    var user = req.body.auth;
+    const credentials = firebaseSDK.auth.EmailAuthProvider.credential(req.body.email,req.body.currentPass);
+    // var credentials ={email: req.body.email, password: req.body.currentPass};
+    firebase.authentication.currentUser.reauthenticateWithCredential(credentials).then(() =>{
+        firebase.authentication.currentUser.updatePassword(req.body.newPass).then(() => {
+            res.json({success: true, message: "Password changed successfully"});
+        }).catch((err) => {
+            res.json({success: false, messsage:err.message});
+        })
+    }).catch((err) => {
+        res.json({success: false, message:err.message});
     })
-
-
 });
+
+// router.post('/search', (req,res) => {
+//     var users = firebase.database.ref('users');
+//     users.orderByChild('NIC').equalTo('432432432V').on("child_added", (res) => {
+//         console.log(res.key.length);
+//     })
+//
+//
+// });
 
 module.exports = router;
