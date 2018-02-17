@@ -12,6 +12,7 @@
           <h1 id='mainh' class="white--text mb-2 display-3 text-xs-center">Millennium Planning</h1>
           <div class="subheading mb-3 text-xs-center">Easily plan, schedule, and track your projects.</div>
           <v-btn
+            v-show="!loggedIn"
             class="dark mt-5"
             dark
             large
@@ -94,6 +95,13 @@
 
     data () {
       return {
+        loggedIn: false
+      }
+    },
+
+    mounted () {
+      if(localStorage.getItem('user')){
+        this.loggedIn = true
       }
     }
   }
