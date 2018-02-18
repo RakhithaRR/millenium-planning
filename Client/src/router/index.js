@@ -4,6 +4,7 @@ import Home from '@/components/HomePage'
 import Register from '@/components/Accounts/Register'
 import Login from '@/components/Accounts/Login'
 import Profile from '@/components/Accounts/Profile'
+import AddProject from '@/components/Projects/AddProject'
 
 Vue.use(Router)
 
@@ -32,6 +33,12 @@ export default new Router({
       path: '/profile/:id',
       name: 'Profile',
       component: Profile
+    },
+
+    {
+      path: '/addproject',
+      name: 'AddProject',
+      component: AddProject
     },
   ]
 })
