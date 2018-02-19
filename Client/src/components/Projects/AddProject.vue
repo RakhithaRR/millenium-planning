@@ -95,41 +95,101 @@
                 </v-menu>
               </v-flex>
             </v-layout>
+
             <hr>
             <br>
-            <div><p class="body-2">Technologies</p></div>
+
+            <div>
+              <p class="title">Technologies</p>
+              <p>Please mention the technologies you plan to use in your project.</p>
+            </div>
             <div>
               <v-layout row wrap>
                 <v-flex xs11 sm5>
                   <v-text-field
+                    ref="tech"
                     label="Technology"
                     v-model="technology"
-                    :rules="techRules"
                     required
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs11 sm5>
+                <v-flex xs11 sm2>
                   <v-btn
                     :disabled="!(technology != '')"
                     @click="addTech"
                   >Add</v-btn>
                 </v-flex>
-              </v-layout>
-              <v-layout v-for="(item,index) in techs" :key="`${item}`">
                 <v-flex xs11 sm5>
-                  <p>{{item}} - {{index}}</p>
+                  <br>
+                  <v-layout v-for="(item,index) in techs" :key="`${item}`">
+                    <v-flex xs11 sm5>
+                      <p class="body-2">{{item}}</p>
+                    </v-flex>
+                    <v-flex xs11 sm5>
+                      <v-icon
+                        @click="techs.splice(index,1)"
+                      >mdi-delete</v-icon>
+                    </v-flex>
+                  </v-layout>
                 </v-flex>
-                <v-flex xs11 sm5>
-                  <v-btn
-                    dark
-                    @click="techs.splice(index,1)"
+              </v-layout>
+
+            </div>
+
+            <hr>
+            <br>
+
+            <div>
+              <p class="title">Tasks</p>
+              <p>Please mention the tasks involved in the project. These are the main parts of the project that will determine the flow of the project.</p>
+            </div>
+
+            <div>
+              <v-layout row wrap>
+                <v-flex xs11 md8>
+                  <v-text-field
+                    ref="tech"
+                    label="Task Name"
+                    v-model="task.taskName"
+                    required
+                  ></v-text-field>
+
+                  <v-menu
+                    ref="deadline"
+                    lazy
+                    :close-on-content-click="false"
+                    v-model="menu3"
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    :nudge-right="40"
+                    min-width="290px"
+                    :return-value.sync="task.deadline"
                   >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
+                    <v-text-field
+                      slot="activator"
+                      label="Deadline"
+                      v-model="task.deadline"
+                      prepend-icon="event"
+                      readonly
+                    ></v-text-field>
+                    <v-date-picker
+                      color="black"
+                      v-model="task.deadline"
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn flat color="primary" @click="menu3 = false">Cancel</v-btn>
+                      <v-btn flat color="primary" @click="$refs.menu3.save(task.deadline)">OK</v-btn>
+                    </v-date-picker>
+                  </v-menu>
+
+                </v-flex>
+                <v-flex xs11 md4>
+                  <v-btn>Add Task</v-btn>
                 </v-flex>
               </v-layout>
             </div>
-
 
           </v-form>
 
@@ -158,15 +218,22 @@
 
         technology: "",
         techs: [],
-        techRules: [
-          (v) => !!v || 'Technology is required',
-        ],
+//        techRules: [
+//          (v) => !!v || 'Technology is required',
+//        ],
+
+        task: {
+          taskName: "",
+          deadline: null,
+          user: null
+        },
 
         description: "",
         startDate: null,
         endDate: null,
         menu1: false,
         menu2: false,
+        menu3: false,
         modal: false,
 
       }
@@ -174,6 +241,8 @@
     methods: {
       addTech () {
         this.techs.push(this.technology);
+        this.technology = ""
+        this.$refs.tech.focus();
       }
     }
   }
