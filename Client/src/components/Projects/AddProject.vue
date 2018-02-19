@@ -52,7 +52,11 @@
                     prepend-icon="event"
                     readonly
                   ></v-text-field>
-                  <v-date-picker v-model="startDate" scrollable>
+                  <v-date-picker
+                    v-model="startDate"
+                    scrollable
+                    color="black"
+                  >
                     <v-btn flat color="primary" @click="menu1 = false">Cancel</v-btn>
                     <v-btn flat color="primary" @click="$refs.menu1.save(startDate)">OK</v-btn>
                   </v-date-picker>
@@ -80,6 +84,7 @@
                     readonly
                   ></v-text-field>
                   <v-date-picker
+                    color="black"
                     v-model="endDate"
                     scrollable
                   >
@@ -88,9 +93,44 @@
                     <v-btn flat color="primary" @click="$refs.menu2.save(endDate)">OK</v-btn>
                   </v-date-picker>
                 </v-menu>
-
               </v-flex>
             </v-layout>
+            <hr>
+            <br>
+            <div><p class="body-2">Technologies</p></div>
+            <div>
+              <v-layout row wrap>
+                <v-flex xs11 sm5>
+                  <v-text-field
+                    label="Technology"
+                    v-model="technology"
+                    :rules="techRules"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs11 sm5>
+                  <v-btn
+                    :disabled="!(technology != '')"
+                    @click="addTech"
+                  >Add</v-btn>
+                </v-flex>
+              </v-layout>
+              <v-layout v-for="(item,index) in techs" :key="`${item}`">
+                <v-flex xs11 sm5>
+                  <p>{{item}} - {{index}}</p>
+                </v-flex>
+                <v-flex xs11 sm5>
+                  <v-btn
+                    dark
+                    @click="techs.splice(index,1)"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </div>
+
+
           </v-form>
 
         </v-flex>
@@ -116,6 +156,12 @@
           (v) => !!v || 'Client name is required',
         ],
 
+        technology: "",
+        techs: [],
+        techRules: [
+          (v) => !!v || 'Technology is required',
+        ],
+
         description: "",
         startDate: null,
         endDate: null,
@@ -126,7 +172,9 @@
       }
     },
     methods: {
-
+      addTech () {
+        this.techs.push(this.technology);
+      }
     }
   }
 
