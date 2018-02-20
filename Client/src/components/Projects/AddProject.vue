@@ -151,7 +151,7 @@
                 <v-flex xs11 md8>
                   <v-text-field
                     label="Task Name"
-                    v-model="task.taskName"
+                    v-model="taskName"
                     required
                   ></v-text-field>
 
@@ -165,38 +165,69 @@
                     full-width
                     :nudge-right="40"
                     min-width="290px"
-                    :return-value.sync="task.deadline"
+                    :return-value.sync="deadline"
                   >
                     <v-text-field
                       slot="activator"
                       label="Deadline"
-                      v-model="task.deadline"
+                      v-model="deadline"
                       prepend-icon="event"
                       readonly
                     ></v-text-field>
                     <v-date-picker
                       color="black"
-                      v-model="task.deadline"
+                      v-model="deadline"
                       scrollable
                     >
                       <v-spacer></v-spacer>
                       <v-btn flat color="primary" @click="menu3 = false">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="$refs.menu3.save(task.deadline)">OK</v-btn>
+                      <v-btn flat color="primary" @click="$refs.menu3.save(deadline)">OK</v-btn>
                     </v-date-picker>
                   </v-menu>
 
                   <v-select
                     :items="users"
-                    v-model="assignedUser"
+                    v-model="user"
                     label="Select a user"
                     autocomplete
                   ></v-select>
 
                 </v-flex>
                 <v-flex xs11 md4>
-                  <v-btn>Add Task</v-btn>
+                  <v-btn
+                    :disabled="(taskName === '') || (deadline === null) || (user === null)"
+                    @click="addTask"
+                  >Add Task</v-btn>
                 </v-flex>
               </v-layout>
+            </div>
+            <br>
+            <hr>
+            <br>
+            <v-layout v-for="(item,index) in tasks" :key="`${index}`">
+              <v-flex xs11 md8>
+                <p><b>Task Name: {{item.taskName}}</b></p>
+                <p>Deadline: {{item.deadline}}</p>
+                <p>Assigned User: {{item.user}}</p>
+
+              </v-flex>
+              <v-flex xs11 md4>
+                <v-btn @click="tasks.splice(index,1)">Remove Task</v-btn>
+              </v-flex>
+            </v-layout>
+            <hr>
+            <br>
+            <p>Please confirm that the above information is correct.</p>
+            <v-switch
+              color="green"
+              v-model="switch1"
+            ></v-switch>
+
+            <div class="layout justify-center">
+              <v-btn
+                dark
+                :disabled="!switch1"
+              >Add Project</v-btn>
             </div>
 
           </v-form>
@@ -230,11 +261,10 @@
 //          (v) => !!v || 'Technology is required',
 //        ],
 
-        task: {
-          taskName: "",
-          deadline: null,
-          user: null
-        },
+        taskName: "",
+        deadline: null,
+        user: null,
+        tasks: [],
 
         description: "",
         startDate: null,
@@ -244,8 +274,8 @@
         menu3: false,
         modal: false,
 
-        assignedUser: "",
-        users: []
+        users: [],
+        switch1: true
 
       }
     },
@@ -271,6 +301,18 @@
           .catch((error) => {
 
           })
+      },
+
+      addTask () {
+        var task = new Object();
+        task.taskName = this.taskName;
+        task.deadline = this.deadline;
+        task.user = this.user;
+        task.status = false;
+        this.tasks.push(task)
+        this.taskName = ""
+        this.deadline = null
+        this.user = null
       }
     },
 

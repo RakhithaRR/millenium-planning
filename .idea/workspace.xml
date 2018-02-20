@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="914f09dc-6ab9-43ad-8130-e2041972fb27" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Server/routes/project.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue" afterPath="$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Server/app.js" afterPath="$PROJECT_DIR$/Server/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,8 +20,8 @@
       <file leaf-file-name="AddProject.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="265" column="42" lean-forward="false" selection-start-line="265" selection-start-column="42" selection-end-line="265" selection-end-column="42" />
+            <state relative-caret-position="198">
+              <caret line="208" column="50" lean-forward="false" selection-start-line="208" selection-start-column="50" selection-end-line="208" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -179,6 +177,21 @@
             <path>
               <item name="v1" type="b2602c69:ProjectViewProjectNode" />
               <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="v1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Projects" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="v1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="v1" type="462c0819:PsiDirectoryNode" />
               <item name="Server" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -263,7 +276,7 @@
       <workItem from="1518928502728" duration="11214000" />
       <workItem from="1519044845481" duration="12439000" />
       <workItem from="1519108219075" duration="2723000" />
-      <workItem from="1519136293276" duration="9759000" />
+      <workItem from="1519136293276" duration="14255000" />
     </task>
     <task id="LOCAL-00001" summary="Minor changes.">
       <created>1517404011461</created>
@@ -426,11 +439,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519069894841</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="User suggestions.">
+      <created>1519148657247</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1519148657247</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179735000" />
+    <option name="totallyTimeSpent" value="184231000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -520,7 +540,8 @@
     <MESSAGE value="Started working on projects." />
     <MESSAGE value="Added technologies." />
     <MESSAGE value="Development of add project." />
-    <option name="LAST_COMMIT_MESSAGE" value="Development of add project." />
+    <MESSAGE value="User suggestions." />
+    <option name="LAST_COMMIT_MESSAGE" value="User suggestions." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -857,8 +878,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="265" column="42" lean-forward="false" selection-start-line="265" selection-start-column="42" selection-end-line="265" selection-end-column="42" />
+        <state relative-caret-position="198">
+          <caret line="208" column="50" lean-forward="false" selection-start-line="208" selection-start-column="50" selection-end-line="208" selection-end-column="50" />
           <folding />
         </state>
       </provider>
