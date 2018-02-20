@@ -142,13 +142,14 @@
             <div>
               <p class="title">Tasks</p>
               <p>Please mention the tasks involved in the project. These are the main parts of the project that will determine the flow of the project.</p>
+              <p>Deadline will be the final date given to complete the relevant task.</p>
+              <p>Select a user who will be responsible for the relevant task.</p>
             </div>
 
             <div>
               <v-layout row wrap>
                 <v-flex xs11 md8>
                   <v-text-field
-                    ref="tech"
                     label="Task Name"
                     v-model="task.taskName"
                     required
@@ -183,6 +184,13 @@
                       <v-btn flat color="primary" @click="$refs.menu3.save(task.deadline)">OK</v-btn>
                     </v-date-picker>
                   </v-menu>
+
+                  <v-select
+                    :items="users"
+                    v-model="assignedUser"
+                    label="Select a user"
+                    autocomplete
+                  ></v-select>
 
                 </v-flex>
                 <v-flex xs11 md4>
@@ -236,6 +244,9 @@
         menu3: false,
         modal: false,
 
+        assignedUser: "",
+        users: []
+
       }
     },
     methods: {
@@ -243,7 +254,28 @@
         this.techs.push(this.technology);
         this.technology = ""
         this.$refs.tech.focus();
+      },
+
+      getUsers () {
+        axios.get("http://localhost:3000/project/getUsers")
+          .then((response) => {
+            console.log(response.data);
+            for(var i in response.data){
+              if(response.data.hasOwnProperty(i)){
+                var obj = response.data[i]
+                this.users.push(obj.Name);
+              }
+            }
+
+          })
+          .catch((error) => {
+
+          })
       }
+    },
+
+    mounted () {
+      this.getUsers()
     }
   }
 

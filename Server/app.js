@@ -14,8 +14,10 @@ app.use(bodyParser.json());
 
 //routes
 const users = require('./routes/user');
+const project = require('./routes/project');
 
 app.use('/users',users);
+app.use('/project', project);
 
 
 app.get('/',(req,res) => {
