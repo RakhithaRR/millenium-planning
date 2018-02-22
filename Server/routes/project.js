@@ -12,6 +12,18 @@ router.get('/getUsers', (req,res,next) => {
         res.send(snapshot.val())
     })
 });
+router.post('/addProject',(req,res,next) => {
+    var projectKey = firebase.database.ref().child('projects').push().key;
+    var projRef = firebase.database.ref('projects');
+
+    projRef.child(projectKey).set({
+
+    }).then((result) => {
+        console.log(result);
+    }).catch((err) => {
+        console.log(err);
+    })
+});
 
 
 module.exports = router;

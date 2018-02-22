@@ -215,8 +215,8 @@
                 <v-btn @click="tasks.splice(index,1)">Remove Task</v-btn>
               </v-flex>
             </v-layout>
-            <hr>
-            <br>
+            <hr v-show="tasks.length>0">
+            <br v-show="tasks.length>0">
             <p>Please confirm that the above information is correct.</p>
             <v-switch
               color="green"
@@ -257,9 +257,6 @@
 
         technology: "",
         techs: [],
-//        techRules: [
-//          (v) => !!v || 'Technology is required',
-//        ],
 
         taskName: "",
         deadline: null,
@@ -267,6 +264,7 @@
         tasks: [],
 
         description: "",
+
         startDate: null,
         endDate: null,
         menu1: false,
@@ -275,7 +273,7 @@
         modal: false,
 
         users: [],
-        switch1: true
+        switch1: false
 
       }
     },
@@ -313,6 +311,24 @@
         this.taskName = ""
         this.deadline = null
         this.user = null
+      },
+
+      addProject () {
+        axios.post("http://localhost:3000/project/addProject",{
+          name: this.name,
+          client: this.client,
+          description: this.description,
+          technologies: this.techs,
+          startDate: this.startDate,
+          endDate: this.endDate,
+          tasks: this.tasks
+        },{headers:{'Content-Type':'application/json'}})
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       }
     },
 
