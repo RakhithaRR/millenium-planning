@@ -26,9 +26,10 @@ router.post('/addProject',(req,res,next) => {
         Tasks: req.body.tasks
 
     }).then((result) => {
-        console.log(result);
+        res.send({success: true, message: 'Project added successfully'});
     }).catch((err) => {
         console.log(err);
+        res.send({success: true, message: err.message});
     })
 });
 

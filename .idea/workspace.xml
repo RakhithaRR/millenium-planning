@@ -18,21 +18,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="AddProject.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AddProject.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1479">
-              <caret line="229" column="34" lean-forward="false" selection-start-line="229" selection-start-column="34" selection-end-line="229" selection-end-column="34" />
+            <state relative-caret-position="2859">
+              <caret line="323" column="31" lean-forward="false" selection-start-line="323" selection-start-column="31" selection-end-line="323" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server/routes/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+            <state relative-caret-position="359">
+              <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -96,8 +96,8 @@
         <option value="$PROJECT_DIR$/Client/src/router/index.js" />
         <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Server/app.js" />
-        <option value="$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue" />
         <option value="$PROJECT_DIR$/Server/routes/project.js" />
+        <option value="$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue" />
       </list>
     </option>
   </component>
@@ -278,7 +278,7 @@
       <workItem from="1519044845481" duration="12439000" />
       <workItem from="1519108219075" duration="2723000" />
       <workItem from="1519136293276" duration="14499000" />
-      <workItem from="1519279425750" duration="3562000" />
+      <workItem from="1519279425750" duration="5968000" />
     </task>
     <task id="LOCAL-00001" summary="Minor changes.">
       <created>1517404011461</created>
@@ -462,11 +462,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519282396840</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Basic project addition to Firebase.">
+      <created>1519283031234</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1519283031234</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188037000" />
+    <option name="totallyTimeSpent" value="190443000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -559,7 +566,8 @@
     <MESSAGE value="User suggestions." />
     <MESSAGE value="Completed the project form." />
     <MESSAGE value="Working on adding project backend." />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on adding project backend." />
+    <MESSAGE value="Basic project addition to Firebase." />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic project addition to Firebase." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -885,18 +893,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
+    <entry file="file://$PROJECT_DIR$/Server/routes/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1479">
-          <caret line="229" column="34" lean-forward="false" selection-start-line="229" selection-start-column="34" selection-end-line="229" selection-end-column="34" />
+        <state relative-caret-position="359">
+          <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server/routes/project.js">
+    <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+        <state relative-caret-position="2859">
+          <caret line="323" column="31" lean-forward="false" selection-start-line="323" selection-start-column="31" selection-end-line="323" selection-end-column="31" />
           <folding />
         </state>
       </provider>

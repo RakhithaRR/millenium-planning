@@ -325,7 +325,7 @@
           tasks: this.tasks
         },{headers:{'Content-Type':'application/json'}})
           .then((response) => {
-            console.log(response);
+            console.log(response.data.message);
           })
           .catch((error) => {
             console.log(error);
