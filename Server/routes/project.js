@@ -17,6 +17,13 @@ router.post('/addProject',(req,res,next) => {
     var projRef = firebase.database.ref('projects');
 
     projRef.child(projectKey).set({
+        Name: req.body.name,
+        Client: req.body.client,
+        Description: req.body.description,
+        StartDate: req.body.startDate,
+        EndDate: req.body.endDate,
+        Technologies: req.body.technologies,
+        Tasks: req.body.tasks
 
     }).then((result) => {
         console.log(result);

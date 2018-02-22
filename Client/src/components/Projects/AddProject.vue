@@ -227,6 +227,7 @@
               <v-btn
                 dark
                 :disabled="!switch1"
+                @click="addProject"
               >Add Project</v-btn>
             </div>
 

@@ -21,8 +21,8 @@
       <file leaf-file-name="AddProject.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1347">
-              <caret line="329" column="31" lean-forward="false" selection-start-line="329" selection-start-column="31" selection-end-line="329" selection-end-column="31" />
+            <state relative-caret-position="-1479">
+              <caret line="229" column="34" lean-forward="false" selection-start-line="229" selection-start-column="34" selection-end-line="229" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/Server/routes/project.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
-              <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+              <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -278,7 +278,7 @@
       <workItem from="1519044845481" duration="12439000" />
       <workItem from="1519108219075" duration="2723000" />
       <workItem from="1519136293276" duration="14499000" />
-      <workItem from="1519279425750" duration="2930000" />
+      <workItem from="1519279425750" duration="3562000" />
     </task>
     <task id="LOCAL-00001" summary="Minor changes.">
       <created>1517404011461</created>
@@ -455,11 +455,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519153094297</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Working on adding project backend.">
+      <created>1519282396840</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1519282396840</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187405000" />
+    <option name="totallyTimeSpent" value="188037000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -551,7 +558,8 @@
     <MESSAGE value="Development of add project." />
     <MESSAGE value="User suggestions." />
     <MESSAGE value="Completed the project form." />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed the project form." />
+    <MESSAGE value="Working on adding project backend." />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on adding project backend." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -861,14 +869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1347">
-          <caret line="329" column="31" lean-forward="false" selection-start-line="329" selection-start-column="31" selection-end-line="329" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/Accounts/Register.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
@@ -885,10 +885,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/Projects/AddProject.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1479">
+          <caret line="229" column="34" lean-forward="false" selection-start-line="229" selection-start-column="34" selection-end-line="229" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Server/routes/project.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
-          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <caret line="23" column="33" lean-forward="false" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
           <folding />
         </state>
       </provider>
