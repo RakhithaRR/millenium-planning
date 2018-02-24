@@ -187,6 +187,8 @@
 
                   <v-select
                     :items="users"
+                    :filter="customFilter"
+                    item-text = "Name"
                     v-model="user"
                     label="Select a user"
                     autocomplete
@@ -233,8 +235,16 @@
 
           </v-form>
 
+
         </v-flex>
       </v-card>
+      <v-alert color="success" icon="check_circle" value="true" transition="scale-transition" v-show="successCond">
+        {{successMessage}}
+      </v-alert>
+
+      <v-alert color="error" icon="warning" value="true" transition="scale-transition" v-show="failCond">
+        {{successMessage}}
+      </v-alert>
     </v-flex>
   </v-content>
 </template>
@@ -274,7 +284,20 @@
         modal: false,
 
         users: [],
-        switch1: false
+
+        customFilter (item, queryText, itemText) {
+          const hasValue = val => val != null ? val : '';
+          const text = hasValue(item.Name);
+          const query = hasValue(queryText);
+          return text.toString()
+            .toLowerCase()
+            .indexOf(query.toString().toLowerCase()) > -1
+        },
+
+        switch1: false,
+        successCond: false,
+        failCond: false,
+        successMessage: ""
 
       }
     },
@@ -292,7 +315,7 @@
             for(var i in response.data){
               if(response.data.hasOwnProperty(i)){
                 var obj = response.data[i]
-                this.users.push(obj.Name);
+                this.users.push({Name: obj.Name, Username: obj.Username});
               }
             }
 
@@ -306,12 +329,12 @@
         var task = new Object();
         task.taskName = this.taskName;
         task.deadline = this.deadline;
-        task.user = this.user;
+        task.user = this.user.Username;
         task.status = false;
-        this.tasks.push(task)
-        this.taskName = ""
-        this.deadline = null
-        this.user = null
+        this.tasks.push(task);
+        this.taskName = "";
+        this.deadline = null;
+        this.user = null;
       },
 
       addProject () {
@@ -325,9 +348,18 @@
           tasks: this.tasks
         },{headers:{'Content-Type':'application/json'}})
           .then((response) => {
+            this.successMessage = response.data.message;
+            this.successCond = true;
+            this.failCond = false;
+            setTimeout(() => {
+              this.successCond = false
+            },5000);
             console.log(response.data.message);
           })
           .catch((error) => {
+            this.successMessage = error.message;
+            this.successCond = false;
+            this.failCond = true;
             console.log(error);
           })
       }

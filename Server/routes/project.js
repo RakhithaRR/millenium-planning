@@ -8,7 +8,7 @@ const firebase = require('../database/database');
 router.get('/getUsers', (req,res,next) => {
     var userRef = firebase.database.ref('users');
     userRef.orderByChild("Type").equalTo('Admin').on("value", (snapshot) => {
-        console.log(snapshot.val());
+        // console.log(snapshot.val());
         res.send(snapshot.val())
     })
 });
@@ -22,6 +22,7 @@ router.post('/addProject',(req,res,next) => {
         Description: req.body.description,
         StartDate: req.body.startDate,
         EndDate: req.body.endDate,
+        Completion: false,
         Technologies: req.body.technologies,
         Tasks: req.body.tasks
 
