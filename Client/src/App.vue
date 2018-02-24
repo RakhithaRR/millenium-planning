@@ -95,7 +95,7 @@ export default {
         if(user.Type === "Admin"){
           toolbarItems = [
             {title: "Register", icon: "mdi-account-plus", link:"/register"},
-            {title: "Search Projects", icon: "mdi-file-find"},
+            {title: "Search Projects", icon: "mdi-file-find", link: "/searchProjects"},
             {title: "Add Project", icon: "mdi-chart-gantt", link: "/addproject"},
             {title: user.Name.split(" ")[0], icon: "mdi-account-key", link: "/profile/"+user.Username},
 //            {title: "Login", icon: "mdi-login-variant", link: "/login"},
@@ -104,7 +104,7 @@ export default {
         else if(user.Type === "Normal User"){
           toolbarItems = [
 //            {title: "Register", icon: "mdi-account-plus", link:"/register"},
-            {title: "Search Projects", icon: "mdi-file-find"},
+            {title: "Search Projects", icon: "mdi-file-find", link: "/searchProjects"},
             {title: user.Name.split(" ")[0], icon: "mdi-account", link: "/profile/"+user.Username},
 //            {title: "Login", icon: "mdi-login-variant", link: "/login"},
           ]

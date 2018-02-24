@@ -34,5 +34,11 @@ router.post('/addProject',(req,res,next) => {
     })
 });
 
+router.get('/getProjects', (req,res,next) => {
+    var projRef = firebase.database.ref('projects');
+    projRef.on("value", (snapshot) => {
+        res.send(snapshot.val());
+    });
+});
 
 module.exports = router;
