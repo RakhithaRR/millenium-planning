@@ -6,6 +6,7 @@ import Login from '@/components/Accounts/Login'
 import Profile from '@/components/Accounts/Profile'
 import AddProject from '@/components/Projects/AddProject'
 import SearchProjects from '@/components/Projects/SearchProjects'
+import ViewProjects from '@/components/Projects/ViewProjects'
 
 Vue.use(Router)
 
@@ -46,6 +47,12 @@ export default new Router({
       path: '/searchProjects',
       name: 'SearchProjects',
       component: SearchProjects
+    },
+
+    {
+      path: '/projects/:id',
+      name: 'ViewProjects',
+      component: ViewProjects
     },
   ]
 })
