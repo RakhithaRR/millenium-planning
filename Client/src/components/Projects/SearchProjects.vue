@@ -13,7 +13,13 @@
       </div>
     </v-flex>
     <v-flex mt-2 md8 xs12 offset-md2>
-      <v-card class="mt-2" hover tile v-for="(item,index) in filteredProjects" :key="`${index}`">
+      <v-card
+        class="mt-2"
+        hover
+        tile
+        v-for="(item,index) in filteredProjects"
+        :key="`${index}`"
+      >
         <v-card-title primary-title>
           <v-flex md5>
             <div>
@@ -27,6 +33,7 @@
             </div>
           </v-flex>
           <v-flex md3>
+
             <div>
               <v-progress-circular
                 :size="100"
@@ -38,6 +45,11 @@
                 {{getCompletion(item)}}%
               </v-progress-circular>
             </div>
+          </v-flex>
+          <v-flex md2>
+            <v-btn v-on:click="viewProject(item)">
+              View
+            </v-btn>
           </v-flex>
         </v-card-title>
       </v-card>
@@ -84,6 +96,12 @@
         }
 
         return Math.floor((counter/nTasks) * 100);
+      },
+
+      viewProject (projName) {
+        localStorage.setItem('project',JSON.stringify(projName));
+        this.$router.push("/projects/" + projName.Name);
+
       }
     },
 
