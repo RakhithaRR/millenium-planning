@@ -59,9 +59,10 @@
 
 <script>
   import axios from 'axios';
+
   export default {
 
-    data () {
+    data() {
       return {
         projects: [],
         search: ""
@@ -69,12 +70,12 @@
       }
     },
     methods: {
-      getProjects () {
+      getProjects() {
         axios.get("http://localhost:3000/project/getProjects")
           .then((response) => {
             console.log(response.data);
-            for(var i in response.data){
-              if(response.data.hasOwnProperty(i)){
+            for (var i in response.data) {
+              if (response.data.hasOwnProperty(i)) {
                 var obj = response.data[i]
                 this.projects.push(obj);
               }
@@ -85,27 +86,27 @@
           })
       },
 
-      getCompletion (project) {
+      getCompletion(project) {
         var nTasks = project.Tasks.length;
         var counter = 0;
-        for(var i in project.Tasks){
+        for (var i in project.Tasks) {
           var obj = project.Tasks[i];
-          if(obj.status){
+          if (obj.status) {
             counter++
           }
         }
 
-        return Math.floor((counter/nTasks) * 100);
+        return Math.floor((counter / nTasks) * 100);
       },
 
-      viewProject (projName) {
-        localStorage.setItem('project',JSON.stringify(projName));
+      viewProject(projName) {
+        localStorage.setItem('project', JSON.stringify(projName));
         this.$router.push("/projects/" + projName.Name);
 
       }
     },
 
-    mounted () {
+    mounted() {
       this.getProjects();
     },
 

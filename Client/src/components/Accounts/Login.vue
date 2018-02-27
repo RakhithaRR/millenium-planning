@@ -33,7 +33,8 @@
           <v-btn
             dark
             @click="login"
-          >Login</v-btn>
+          >Login
+          </v-btn>
         </div>
         <div class="layout justify-center" v-show="progress">
           <v-progress-linear v-bind:indeterminate="true" color="black"></v-progress-linear>
@@ -46,8 +47,9 @@
 
 <script>
   import axios from 'axios';
+
   export default {
-    data () {
+    data() {
       return {
         valid: false,
         pass1: true,
@@ -73,21 +75,21 @@
       login() {
         this.failCond = false;
         this.progress = true;
-        axios.post('http://localhost:3000/users/login',{
+        axios.post('http://localhost:3000/users/login', {
           email: this.email,
           password: this.password
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
-            if(response.data.success){
+            if (response.data.success) {
               this.progress = false;
               console.log(response.data.message);
               console.log(response.data.user);
-              localStorage.setItem("user",JSON.stringify(response.data.user));
-              localStorage.setItem("token",response.data.token);
+              localStorage.setItem("user", JSON.stringify(response.data.user));
+              localStorage.setItem("token", response.data.token);
               this.$router.push('/');
               location.reload();
             }
-            else{
+            else {
               this.failCond = true;
               this.progress = false;
               this.successMessage = response.data.message;

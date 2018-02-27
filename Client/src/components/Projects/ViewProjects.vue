@@ -6,26 +6,19 @@
 
 <script>
   import axios from 'axios';
+
   export default {
 
-    data () {
-      return {
-
-
-      }
+    data() {
+      return {}
     },
-    methods: {
+    methods: {},
 
+    mounted() {
 
     },
 
-    mounted () {
-
-  },
-
-    computed: {
-
-    }
+    computed: {}
   }
 
 </script>

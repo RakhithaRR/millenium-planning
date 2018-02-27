@@ -1,7 +1,9 @@
+//importing packages
 var express = require('express');
 var router = express.Router();
 var firebaseSDK = require('firebase');
 
+//importing the database
 const firebase = require('../database/database');
 
 
@@ -10,6 +12,8 @@ router.get('/check', function(req, res, next) {
     res.send('User endpoint');
 });
 
+
+//controller for registering a new user in the system
 router.post('/register', (req,res,next) => {
 
     var userRef = firebase.database.ref('users');
@@ -43,7 +47,7 @@ router.post('/register', (req,res,next) => {
 
     }
 
-
+    //checking whether a certain username already exists in the system
     userRef.orderByChild("Username").equalTo(req.body.userName).once("value", (snapshot) => {
         var exists = (snapshot.val() !== null);
         usernameExists(exists);
@@ -51,13 +55,13 @@ router.post('/register', (req,res,next) => {
     })
 });
 
+
+//controller for logging in to the system
 router.post('/login', (req,res) => {
 
    var userRef = firebase.database.ref('users');
     firebase.authentication.signInWithEmailAndPassword(req.body.email, req.body.password)
         .then((result) => {
-        // var loggedUser = firebase.authentication.currentUser;
-        // console.log(loggedUser);
             firebase.authentication.currentUser.getIdToken(true)
                 .then((token) => {
                     userRef.child(result.uid).on("value", (snapshot) => {
@@ -65,8 +69,7 @@ router.post('/login', (req,res) => {
                         res.json({success: true, message: 'User logged in successfully', token: token, user: snapshot.val()});
                     });
                 });
-            // res.json({success: true, message: 'User logged in successfully'});
-            // console.log(result.providerData);
+
 
         })
         .catch((error) => {
@@ -82,6 +85,7 @@ router.post('/login', (req,res) => {
 
 });
 
+//controller for logging out a user from the system
 router.post('/logout',(req,res,next) => {
     firebase.authentication.signOut()
         .then(() => {
@@ -93,19 +97,13 @@ router.post('/logout',(req,res,next) => {
         });
 });
 
+//controller for updating the user password for an existing user.
 router.post('/update', (req,res,next) => {
-    // firebase.authentication.onAuthStateChanged((userObj) => {
-    //     if(userObj){
-    //         console.log('Success' +userObj);
-    //     }
-    //     else{
-    //         console.log('Fail '+userObj);
-    //     }
-    // });
-    // console.log(user);
+
     var user = req.body.auth;
     const credentials = firebaseSDK.auth.EmailAuthProvider.credential(req.body.email,req.body.currentPass);
-    // var credentials ={email: req.body.email, password: req.body.currentPass};
+
+    //reauthenticating the user before changing the password in order to ensure the validity.
     firebase.authentication.currentUser.reauthenticateWithCredential(credentials).then(() =>{
         firebase.authentication.currentUser.updatePassword(req.body.newPass).then(() => {
             res.json({success: true, message: "Password changed successfully"});
@@ -117,13 +115,5 @@ router.post('/update', (req,res,next) => {
     })
 });
 
-// router.post('/search', (req,res) => {
-//     var users = firebase.database.ref('users');
-//     users.orderByChild('NIC').equalTo('432432432V').on("child_added", (res) => {
-//         console.log(res.key.length);
-//     })
-//
-//
-// });
 
 module.exports = router;

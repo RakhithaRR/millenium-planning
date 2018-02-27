@@ -117,7 +117,8 @@
                   <v-btn
                     :disabled="!(technology != '')"
                     @click="addTech"
-                  >Add</v-btn>
+                  >Add
+                  </v-btn>
                 </v-flex>
                 <v-flex xs11 sm5>
                   <br>
@@ -128,7 +129,8 @@
                     <v-flex xs11 sm5>
                       <v-icon
                         @click="techs.splice(index,1)"
-                      >mdi-delete</v-icon>
+                      >mdi-delete
+                      </v-icon>
                     </v-flex>
                   </v-layout>
                 </v-flex>
@@ -141,7 +143,8 @@
 
             <div>
               <p class="title">Tasks</p>
-              <p>Please mention the tasks involved in the project. These are the main parts of the project that will determine the flow of the project.</p>
+              <p>
+                Please mention the tasks involved in the project. These are the main parts of the project that will determine the flow of the project.</p>
               <p>Deadline will be the final date given to complete the relevant task.</p>
               <p>Select a user who will be responsible for the relevant task.</p>
             </div>
@@ -188,7 +191,7 @@
                   <v-select
                     :items="users"
                     :filter="customFilter"
-                    item-text = "Name"
+                    item-text="Name"
                     v-model="user"
                     label="Select a user"
                     autocomplete
@@ -199,7 +202,8 @@
                   <v-btn
                     :disabled="(taskName === '') || (deadline === null) || (user === null)"
                     @click="addTask"
-                  >Add Task</v-btn>
+                  >Add Task
+                  </v-btn>
                 </v-flex>
               </v-layout>
             </div>
@@ -230,7 +234,8 @@
                 dark
                 :disabled="!switch1"
                 @click="addProject"
-              >Add Project</v-btn>
+              >Add Project
+              </v-btn>
             </div>
 
           </v-form>
@@ -251,9 +256,10 @@
 
 <script>
   import axios from 'axios';
+
   export default {
 
-    data () {
+    data() {
       return {
         valid: false,
         name: '',
@@ -285,7 +291,7 @@
 
         users: [],
 
-        customFilter (item, queryText, itemText) {
+        customFilter(item, queryText, itemText) {
           const hasValue = val => val != null ? val : '';
           const text = hasValue(item.Name);
           const query = hasValue(queryText);
@@ -302,18 +308,18 @@
       }
     },
     methods: {
-      addTech () {
+      addTech() {
         this.techs.push(this.technology);
         this.technology = ""
         this.$refs.tech.focus();
       },
 
-      getUsers () {
+      getUsers() {
         axios.get("http://localhost:3000/project/getUsers")
           .then((response) => {
             console.log(response.data);
-            for(var i in response.data){
-              if(response.data.hasOwnProperty(i)){
+            for (var i in response.data) {
+              if (response.data.hasOwnProperty(i)) {
                 var obj = response.data[i]
                 this.users.push({Name: obj.Name, Username: obj.Username});
               }
@@ -325,7 +331,7 @@
           })
       },
 
-      addTask () {
+      addTask() {
         var task = new Object();
         task.taskName = this.taskName;
         task.deadline = this.deadline;
@@ -337,8 +343,8 @@
         this.user = null;
       },
 
-      addProject () {
-        axios.post("http://localhost:3000/project/addProject",{
+      addProject() {
+        axios.post("http://localhost:3000/project/addProject", {
           name: this.name,
           client: this.client,
           description: this.description,
@@ -346,14 +352,14 @@
           startDate: this.startDate,
           endDate: this.endDate,
           tasks: this.tasks
-        },{headers:{'Content-Type':'application/json'}})
+        }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
             this.successMessage = response.data.message;
             this.successCond = true;
             this.failCond = false;
             setTimeout(() => {
               this.successCond = false
-            },5000);
+            }, 5000);
             console.log(response.data.message);
           })
           .catch((error) => {
@@ -365,7 +371,7 @@
       }
     },
 
-    mounted () {
+    mounted() {
       this.getUsers()
     }
   }

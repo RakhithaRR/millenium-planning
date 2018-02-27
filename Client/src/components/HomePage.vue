@@ -93,14 +93,14 @@
 <script>
   export default {
 
-    data () {
+    data() {
       return {
         loggedIn: false
       }
     },
 
-    mounted () {
-      if(localStorage.getItem('user')){
+    mounted() {
+      if (localStorage.getItem('user')) {
         this.loggedIn = true
       }
     }

@@ -90,11 +90,13 @@
               dark
               @click="submit"
               :disabled="!valid"
-            >Submit</v-btn>
+            >Submit
+            </v-btn>
             <v-btn
               dark
               v-on:click="clear"
-            >Clear</v-btn>
+            >Clear
+            </v-btn>
           </div>
           <div class="layout justify-center" v-show="progress">
             <v-progress-linear v-bind:indeterminate="true" color="black"></v-progress-linear>
@@ -111,7 +113,7 @@
 
   export default {
 
-    data () {
+    data() {
       return {
         valid: false,
         pass1: true,
@@ -162,9 +164,9 @@
       }
     },
     methods: {
-      submit () {
+      submit() {
         this.progress = true;
-        axios.post('http://localhost:3000/users/register',{
+        axios.post('http://localhost:3000/users/register', {
           type: this.type,
           name: this.name,
           userName: this.userName,
@@ -174,31 +176,31 @@
           password: this.password
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
-          if(response.data.success){
-            this.successMessage = "User registered successfully";
-            this.successCond = true;
-            this.failCond = false;
-            this.progress = false;
-            setTimeout(() => {
-              this.$router.push('/');
-            },2000);
+            if (response.data.success) {
+              this.successMessage = "User registered successfully";
+              this.successCond = true;
+              this.failCond = false;
+              this.progress = false;
+              setTimeout(() => {
+                this.$router.push('/');
+              }, 2000);
 
-          }
-          else{
-            this.successMessage = response.data.message;
-            this.progress = false;
-            this.failCond = true;
-            this.successCond = false;
-          }
+            }
+            else {
+              this.successMessage = response.data.message;
+              this.progress = false;
+              this.failCond = true;
+              this.successCond = false;
+            }
 
-          console.log(response.data.message);
-        }).catch((error) => {
-          console.log("Error: "+error);
+            console.log(response.data.message);
+          }).catch((error) => {
+          console.log("Error: " + error);
           this.progress = false;
         });
       },
 
-      clear () {
+      clear() {
         this.progress = false;
         this.$refs.regForm.reset();
         this.successCond = false;
@@ -214,11 +216,11 @@
 <!--v-model=""-->
 
 <!--<v-text-field-->
-  <!--label="NIC"-->
-  <!--placeholder="951234567V"-->
-  <!--v-model="nic"-->
-  <!--:rules="nicRules"-->
-  <!--required-->
+<!--label="NIC"-->
+<!--placeholder="951234567V"-->
+<!--v-model="nic"-->
+<!--:rules="nicRules"-->
+<!--required-->
 <!--&gt;</v-text-field>-->
 <!--nic: '',-->
 <!--nicRules: [-->

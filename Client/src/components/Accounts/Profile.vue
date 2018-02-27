@@ -43,16 +43,18 @@
 
               </v-list>
 
-             <v-flex md8 offset-md2>
-               <v-expansion-panel>
-                 <v-expansion-panel-content expand-icon="mdi-menu-down">
-                   <div slot="header"><h4>Change Password</h4></div>
+              <v-flex md8 offset-md2>
+                <v-expansion-panel>
+                  <v-expansion-panel-content expand-icon="mdi-menu-down">
+                    <div slot="header"><h4>Change Password</h4></div>
                     <v-flex md6 offset-md3>
-                      <v-alert color="success" icon="check_circle" value="true" transition="scale-transition" v-show="successCond">
+                      <v-alert color="success" icon="check_circle" value="true" transition="scale-transition"
+                               v-show="successCond">
                         {{successMessage}}
                       </v-alert>
 
-                      <v-alert color="error" icon="warning" value="true" transition="scale-transition" v-show="failCond">
+                      <v-alert color="error" icon="warning" value="true" transition="scale-transition"
+                               v-show="failCond">
                         {{successMessage}}
                       </v-alert>
                       <v-form v-model="valid">
@@ -108,9 +110,9 @@
                         </div>
                       </v-form>
                     </v-flex>
-                 </v-expansion-panel-content>
-               </v-expansion-panel>
-             </v-flex>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-flex>
             </v-card>
 
           </v-tabs-content>
@@ -129,10 +131,11 @@
 
 <script>
   import axios from 'axios';
+
   export default {
-    data () {
+    data() {
       return {
-        user : {},
+        user: {},
 
         valid: false,
         pass1: true,
@@ -165,7 +168,7 @@
     },
 
     methods: {
-      changePass () {
+      changePass() {
         axios.post('http://localhost:3000/users/update', {
           email: this.email,
           currentPass: this.curPassword,
@@ -173,7 +176,7 @@
           auth: this.authInfo
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
-            if(response.data.success){
+            if (response.data.success) {
               this.successMessage = response.data.message;
               this.successCond = true;
               this.failCond = false;
@@ -181,7 +184,7 @@
 
 
             }
-            else{
+            else {
               this.successMessage = response.data.message;
               this.progress = false;
               this.failCond = true;
