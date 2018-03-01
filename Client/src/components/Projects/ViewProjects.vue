@@ -36,6 +36,24 @@
             {{getCompletion(project)}}%
           </v-progress-circular>
         </div>
+
+      </v-card>
+
+      <v-card
+        class="mt-2 mb-2"
+        v-for="(task,index) in project.Tasks"
+        :key="`${index}`"
+      >
+        <v-card-title>
+          <v-flex md9>
+            <h2>{{task.taskName}}</h2>
+          </v-flex>
+          <v-flex md3>
+            <v-btn fab dark small color="dark">
+              <v-icon dark>mdi-check</v-icon>
+            </v-btn>
+          </v-flex>
+        </v-card-title>
       </v-card>
     </v-flex>
   </v-content>
@@ -71,11 +89,15 @@
           });
       },
 
-      getCompletion(project) {
-        var nTasks = project.Tasks.length;
+      getCompletion(cProject) {
+
+        var nTasks = 0;
+        for (var j in cProject.Tasks) {
+          nTasks++
+        }
         var counter = 0;
-        for (var i in project.Tasks) {
-          var obj = project.Tasks[i];
+        for (var i in cProject.Tasks) {
+          var obj = cProject.Tasks[i];
           if (obj.status) {
             counter++
           }
@@ -94,4 +116,11 @@
 
 </script>
 
+<!--<div class="layout justify-center">-->
+<!--<v-date-picker-->
+<!--full-width-->
+<!--landscape-->
+<!--class="mt-3"-->
 
+<!--&gt;</v-date-picker>-->
+<!--</div>-->
