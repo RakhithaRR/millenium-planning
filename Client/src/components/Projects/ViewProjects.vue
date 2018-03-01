@@ -3,7 +3,38 @@
     <v-flex mt-2 md8 xs12 offset-md2>
       <v-card>
         <div class="layout justify-center">
-          <h1>{{project.Name}}</h1>
+          <h1 class="display-3">{{project.Name}}</h1>
+        </div>
+        <div class="layout justify-center mb-2">
+          <h2 class="display-1">{{project.Client}}</h2>
+        </div>
+
+        <div class="layout justify-center mt-2 mb-2 ml-4">
+          <p class="subheading">{{project.Description}}</p>
+        </div>
+
+        <div class="layout justify-center mt-2 mb-2">
+          <p class="title">
+            {{new Date(project.StartDate).toDateString()}} - {{new Date(project.EndDate).toDateString()}}</p>
+        </div>
+
+        <div class="layout justify-center mt-2 mb-2">
+          <v-chip v-for="(item,index) in project.Technologies" :key="`${index}`">
+            <v-avatar class="teal"><b>{{item[0]}}</b></v-avatar>
+            {{item}}
+          </v-chip>
+        </div>
+
+        <div class="layout justify-center">
+          <v-progress-circular
+            :size="150"
+            :width="10"
+            :rotate="-90"
+            :value="getCompletion(project)"
+            color="teal"
+          >
+            {{getCompletion(project)}}%
+          </v-progress-circular>
         </div>
       </v-card>
     </v-flex>
@@ -38,7 +69,20 @@
           .catch((error) => {
             console.log(error);
           });
-      }
+      },
+
+      getCompletion(project) {
+        var nTasks = project.Tasks.length;
+        var counter = 0;
+        for (var i in project.Tasks) {
+          var obj = project.Tasks[i];
+          if (obj.status) {
+            counter++
+          }
+        }
+
+        return Math.floor((counter / nTasks) * 100);
+      },
     },
 
     mounted() {

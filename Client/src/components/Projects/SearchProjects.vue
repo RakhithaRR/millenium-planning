@@ -38,7 +38,7 @@
               <v-progress-circular
                 :size="100"
                 :width="15"
-                :rotate="360"
+                :rotate="-90"
                 :value="getCompletion(item)"
                 color="teal"
               >
