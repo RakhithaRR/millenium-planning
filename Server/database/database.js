@@ -1,5 +1,6 @@
 const firebase = require('firebase');
 
+//configuration key for the Firebase Realtime Database.
 var config = {
     apiKey: "AIzaSyBpfusbBnMCvrK2stsYYrdTFogjRknm7mo",
     authDomain: "millenniumplanning-3f78a.firebaseapp.com",
@@ -9,8 +10,13 @@ var config = {
     messagingSenderId: "270940786181"
 };
 
+//initializing the Firebase connection
 const connection = firebase.initializeApp(config);
+
+//creating the database connection
 const db = connection.database();
+
+//creating the authentication connection
 const auth = connection.auth();
 
 exports.database = db;

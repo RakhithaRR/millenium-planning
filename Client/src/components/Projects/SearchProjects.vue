@@ -5,7 +5,7 @@
         <v-text-field
           name="search"
           label="Search for Projects"
-          hint="Enter the project name or Client name to search"
+          hint="Enter the Project name or Client name to search"
           prepend-icon="search"
           id="testing"
           v-model="search"
