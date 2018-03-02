@@ -45,13 +45,22 @@
         :key="`${index}`"
       >
         <v-card-title>
-          <v-flex md9>
+          <v-flex md9 xs12>
             <h2>{{task.taskName}}</h2>
           </v-flex>
-          <v-flex md3>
-            <v-btn fab dark small color="dark">
-              <v-icon dark>mdi-check</v-icon>
+          <v-flex md9 xs12>
+            <p class="subheading">{{new Date(task.deadline).toDateString()}}</p>
+          </v-flex>
+          <v-flex md9 xs12>
+            <p class="body-2">Assigned user: {{task.user}}</p>
+          </v-flex>
+          <v-flex md2>
+            <v-btn>
+              Mark as completed
             </v-btn>
+          </v-flex>
+          <v-flex md1>
+            <v-icon color="green">mdi-check-circle</v-icon>
           </v-flex>
         </v-card-title>
       </v-card>
