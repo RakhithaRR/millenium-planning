@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-flex mt-2 md8 xs12 offset-md2>
-      <v-card>
+      <v-card class="mb-5">
         <div class="layout justify-center">
           <h1 class="display-3">{{project.Name}}</h1>
         </div>
@@ -32,19 +32,22 @@
             :rotate="-90"
             :value="getCompletion(project)"
             color="teal"
+            class="mt-2 mb-2"
           >
             {{getCompletion(project)}}%
           </v-progress-circular>
         </div>
-        <div class="layout justify-center">
-          <v-date-picker
-            full-width
-            landscape
-            color="teal"
-            class="mt-3 mb-2"
-            event-color="red"
-            :events="this.events"
-          ></v-date-picker>
+        <div>
+          <v-btn
+            absolute
+            dark
+            fab
+            bottom
+            right
+            color="black"
+          >
+            <v-icon>edit</v-icon>
+          </v-btn>
         </div>
 
       </v-card>
@@ -116,7 +119,10 @@
         key: '',
         project: {},
         cUser: JSON.parse(localStorage.getItem('user')),
-        events: []
+        events: [],
+        checkCount: 0,
+        pendingCount: 0,
+        lateCount: 0,
       }
     },
     methods: {
@@ -180,29 +186,14 @@
         }
       },
 
-      setEvents(projName) {
-//        for(var i in projName.Tasks){
-//          var obj = projName.Tasks[i];
-//          console.log(obj.deadline);
-//          this.events.push(obj.deadline);
-//        }
-        this.events.push('2018-03-04');
-        this.events.push('2018-03-05');
-        console.log("events: "+this.events);
-      }
     },
 
     mounted() {
       this.getProject();
-      this.setEvents(this.project);
 
     },
 
-    computed: {
-      checkCompletetion(cTask) {
-
-      }
-    }
+    computed: {}
   }
 
 </script>
