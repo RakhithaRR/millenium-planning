@@ -36,6 +36,16 @@
             {{getCompletion(project)}}%
           </v-progress-circular>
         </div>
+        <div class="layout justify-center">
+          <v-date-picker
+            full-width
+            landscape
+            color="teal"
+            class="mt-3 mb-2"
+            event-color="red"
+            :events="this.events"
+          ></v-date-picker>
+        </div>
 
       </v-card>
 
@@ -106,6 +116,7 @@
         key: '',
         project: {},
         cUser: JSON.parse(localStorage.getItem('user')),
+        events: []
       }
     },
     methods: {
@@ -167,11 +178,24 @@
         else {
           return false
         }
+      },
+
+      setEvents(projName) {
+//        for(var i in projName.Tasks){
+//          var obj = projName.Tasks[i];
+//          console.log(obj.deadline);
+//          this.events.push(obj.deadline);
+//        }
+        this.events.push('2018-03-04');
+        this.events.push('2018-03-05');
+        console.log("events: "+this.events);
       }
     },
 
     mounted() {
       this.getProject();
+      this.setEvents(this.project);
+
     },
 
     computed: {
@@ -183,11 +207,4 @@
 
 </script>
 
-<!--<div class="layout justify-center">-->
-<!--<v-date-picker-->
-<!--full-width-->
-<!--landscape-->
-<!--class="mt-3"-->
 
-<!--&gt;</v-date-picker>-->
-<!--</div>-->
