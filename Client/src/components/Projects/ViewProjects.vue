@@ -55,12 +55,39 @@
             <p class="body-2">Assigned user: {{task.user}}</p>
           </v-flex>
           <v-flex md2>
-            <v-btn>
+            <v-btn
+              v-show="!task.status && (cUser.Username === task.user)"
+              @click="markCompletion(index,true)"
+            >
               Mark as completed
+            </v-btn>
+            <v-btn
+              v-show="task.status && (cUser.Username === task.user)"
+              @click="markCompletion(index,false)"
+
+            >
+              Mark as incomplete
             </v-btn>
           </v-flex>
           <v-flex md1>
-            <v-icon color="green">mdi-check-circle</v-icon>
+            <v-icon
+              large
+              color="green"
+              v-show="task.status"
+            >mdi-check-circle
+            </v-icon>
+            <v-icon
+              large
+              color="orange"
+              v-show="!task.status && !compareDates(task.deadline)"
+            >mdi-timer-sand
+            </v-icon>
+            <v-icon
+              large
+              color="red"
+              v-show="!task.status && compareDates(task.deadline)"
+            >mdi-alert-circle
+            </v-icon>
           </v-flex>
         </v-card-title>
       </v-card>
@@ -78,6 +105,7 @@
         localProject: JSON.parse(localStorage.getItem('project')),
         key: '',
         project: {},
+        cUser: JSON.parse(localStorage.getItem('user')),
       }
     },
     methods: {
@@ -114,13 +142,43 @@
 
         return Math.floor((counter / nTasks) * 100);
       },
+
+      markCompletion(index, status) {
+        console.log("index:" + index);
+        axios.post("http://localhost:3000/project/completion", {
+          key: this.key,
+          index: index,
+          status: status
+        }, {"headers": {"Content-Type": "application/json"}})
+          .then((response) => {
+            console.log(Date.now());
+            this.getProject();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+
+      compareDates(date) {
+        var cDate = new Date(date);
+        if (cDate < Date.now()) {
+          return true
+        }
+        else {
+          return false
+        }
+      }
     },
 
     mounted() {
       this.getProject();
     },
 
-    computed: {}
+    computed: {
+      checkCompletetion(cTask) {
+
+      }
+    }
   }
 
 </script>

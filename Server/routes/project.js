@@ -55,4 +55,20 @@ router.post('/getCurrentProject', (req, res, next) => {
     })
 });
 
+router.post('/completion', (req, res, next) => {
+    var key = req.body.key;
+    var index = req.body.index;
+    var taskRef = firebase.database.ref('projects/' + key + '/Tasks/' + index);
+    taskRef.update({
+        status: req.body.status
+    })
+        .then((result) => {
+            res.json({success: true});
+        })
+        .catch((error) => {
+            res.json({success: false, message: error.message});
+        });
+
+});
+
 module.exports = router;
