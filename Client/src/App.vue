@@ -57,6 +57,14 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <v-snackbar
+      :timeout="5000"
+      :top="true"
+      v-model="snackbar"
+    >
+      {{ text }}
+      <v-btn flat color="teal" @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
 
     <main>
       <router-view></router-view>
@@ -76,7 +84,9 @@
     data() {
       return {
         title: "Millennium Planning",
-        sideNav: false
+        sideNav: false,
+        snackbar: false,
+        text: ''
       }
     },
 
@@ -93,6 +103,8 @@
 
         if (localStorage.getItem("user")) {
           var user = JSON.parse(localStorage.getItem('user'));
+          this.snackbar = true;
+          this.text = "Signed in as " + user.Name;
           console.log(user);
           if (user.Type === "Admin") {
             toolbarItems = [
