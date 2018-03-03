@@ -61,7 +61,7 @@
     <main>
       <router-view></router-view>
     </main>
-    <v-footer>
+    <v-footer app>
       <span>{{new Date().getFullYear()}}</span>
       <v-spacer></v-spacer>
       <span> © Rakhitha Ranathunge</span>

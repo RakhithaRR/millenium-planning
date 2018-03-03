@@ -45,9 +45,21 @@
             bottom
             right
             color="black"
+            v-show="cUser.Type === 'Admin'"
           >
             <v-icon>edit</v-icon>
           </v-btn>
+        </div>
+        <div>
+          <v-date-picker
+            :show-current='true'
+            full-width
+            no-title
+            v-model="date1"
+            event-color="red darken-1"
+            :events="events"
+            color="teal lighten-2"
+          ></v-date-picker>
         </div>
 
       </v-card>
@@ -105,6 +117,7 @@
         </v-card-title>
       </v-card>
     </v-flex>
+
   </v-content>
 </template>
 
@@ -119,10 +132,9 @@
         key: '',
         project: {},
         cUser: JSON.parse(localStorage.getItem('user')),
-        events: [],
-        checkCount: 0,
-        pendingCount: 0,
-        lateCount: 0,
+        date1: new Date(Date.now()).toISOString().slice(0, 10),
+        events: []
+
       }
     },
     methods: {
@@ -137,6 +149,7 @@
             console.log(response.data.project[key]);
             this.project = response.data.project[key];
             this.key = key;
+            this.getEvents();
           })
           .catch((error) => {
             console.log(error);
@@ -186,14 +199,26 @@
         }
       },
 
+      getEvents() {
+        for(var i in this.project.Tasks){
+          if(this.project.Tasks.hasOwnProperty(i)){
+            var obj = this.project.Tasks[i];
+            this.events.push(obj.deadline);
+          }
+        }
+      }
+
     },
 
     mounted() {
       this.getProject();
 
+
     },
 
-    computed: {}
+    computed: {
+
+    }
   }
 
 </script>
