@@ -7,6 +7,7 @@ import Profile from '@/components/Accounts/Profile'
 import AddProject from '@/components/Projects/AddProject'
 import SearchProjects from '@/components/Projects/SearchProjects'
 import ViewProjects from '@/components/Projects/ViewProjects'
+import EditProjects from '@/components/Projects/EditProjects'
 
 Vue.use(Router)
 
@@ -53,6 +54,12 @@ export default new Router({
       path: '/projects/:id',
       name: 'ViewProjects',
       component: ViewProjects
+    },
+
+    {
+      path: '/editProjects/:id',
+      name: 'EditProjects',
+      component: EditProjects
     },
   ]
 })

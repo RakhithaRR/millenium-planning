@@ -46,6 +46,7 @@
             right
             color="black"
             v-show="cUser.Type === 'Admin'"
+            @click="$router.push('/editProjects/'+project.Name)"
           >
             <v-icon>edit</v-icon>
           </v-btn>
@@ -53,6 +54,7 @@
         <div>
           <v-date-picker
             :show-current='true'
+            read-only
             full-width
             no-title
             v-model="date1"
