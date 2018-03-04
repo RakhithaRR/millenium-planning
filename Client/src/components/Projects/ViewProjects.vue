@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-flex mt-2 md8 xs12 offset-md2>
-      <v-card class="mb-5">
+      <v-card class="mb-5" raised>
         <div class="layout justify-center">
           <h1 class="display-3">{{project.Name}}</h1>
         </div>
@@ -58,7 +58,7 @@
             full-width
             no-title
             v-model="date1"
-            event-color="red darken-1"
+            event-color="purple darken-3"
             :events="events"
             color="teal lighten-2"
           ></v-date-picker>
@@ -97,24 +97,27 @@
             </v-btn>
           </v-flex>
           <v-flex md1>
-            <v-icon
-              large
-              color="green"
+            <v-chip
+              small
+              label
+              color="green lighten-2"
               v-show="task.status"
-            >mdi-check-circle
-            </v-icon>
-            <v-icon
-              large
-              color="orange"
+            >Completed
+            </v-chip>
+            <v-chip
+              small
+              label
+              color="orange lighten-2"
               v-show="!task.status && !compareDates(task.deadline)"
-            >mdi-timer-sand
-            </v-icon>
-            <v-icon
+            >In Progress
+            </v-chip>
+            <v-chip
               large
+              label
               color="red"
               v-show="!task.status && compareDates(task.deadline)"
-            >mdi-alert-circle
-            </v-icon>
+            >Overdue
+            </v-chip>
           </v-flex>
         </v-card-title>
       </v-card>

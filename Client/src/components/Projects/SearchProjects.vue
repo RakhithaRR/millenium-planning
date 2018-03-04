@@ -21,18 +21,18 @@
         :key="`${index}`"
       >
         <v-card-title primary-title>
-          <v-flex md5>
+          <v-flex md5 xs12>
             <div>
               <h2>Project Name: {{item.Name}}</h2>
               <h4>Client: {{item.Client}}</h4>
             </div>
           </v-flex>
-          <v-flex md4>
+          <v-flex md4 xs12>
             <div>
               <h3>Deadline: {{item.EndDate}}</h3>
             </div>
           </v-flex>
-          <v-flex md3>
+          <v-flex md2 xs12>
 
             <div>
               <v-progress-circular
@@ -46,7 +46,30 @@
               </v-progress-circular>
             </div>
           </v-flex>
-          <v-flex md2>
+          <v-flex md1 xs12>
+            <v-chip
+              small
+              label
+              color="green lighten-2"
+              v-show="getStatus(item.EndDate,item) === 'Done'"
+            >Completed
+            </v-chip>
+            <v-chip
+              small
+              label
+              color="orange lighten-2"
+              v-show="getStatus(item.EndDate,item) === 'Pending'"
+            >In Progress
+            </v-chip>
+            <v-chip
+              large
+              label
+              color="red"
+              v-show="getStatus(item.EndDate,item) === 'Overdue'"
+            >Overdue
+            </v-chip>
+          </v-flex>
+          <v-flex md2 xs12>
             <v-btn v-on:click="viewProject(item)">
               View
             </v-btn>
@@ -103,8 +126,34 @@
         localStorage.setItem('project', JSON.stringify(projName));
         this.$router.push("/projects/" + projName.Name);
 
+      },
+
+      compareDates(date) {
+        var cDate = new Date(date);
+        if (cDate < Date.now()) {
+          return true
+        }
+        else {
+          return false
+        }
+      },
+
+      getStatus(cDate, cProject) {
+        var percent = this.getCompletion(cProject);
+        var time = this.compareDates(cDate);
+
+        if (percent === 100) {
+          return "Done"
+        }
+        else if (percent < 100 && !time) {
+          return "Pending"
+        }
+        else if (percent < 100 && time) {
+          return "Overdue"
+        }
       }
     },
+
 
     mounted() {
       this.getProjects();
