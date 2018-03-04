@@ -39,6 +39,28 @@ router.post('/addProject', (req, res, next) => {
     })
 });
 
+router.post('/updateProject', (req, res, next) => {
+    var projRef = firebase.database.ref('projects');
+    var key = req.body.key;
+
+    projRef.child(key).update({
+        Name: req.body.name,
+        Client: req.body.client,
+        Description: req.body.description,
+        StartDate: req.body.startDate,
+        EndDate: req.body.endDate,
+        Completion: false,
+        Technologies: req.body.technologies,
+        Tasks: req.body.tasks
+
+    }).then((result) => {
+        res.send({success: true, message: 'Project updated successfully'});
+    }).catch((err) => {
+        console.log(err);
+        res.send({success: true, message: err.message});
+    })
+});
+
 //getting the list of all the projects available in the system
 router.get('/getProjects', (req, res, next) => {
     var projRef = firebase.database.ref('projects');

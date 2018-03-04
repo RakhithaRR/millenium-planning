@@ -353,14 +353,15 @@
       },
 
       updateProject() {
-        axios.post("http://localhost:3000/project/addProject", {
+        axios.post("http://localhost:3000/project/updateProject", {
           name: this.name,
           client: this.client,
           description: this.description,
           technologies: this.techs,
           startDate: this.startDate,
           endDate: this.endDate,
-          tasks: this.tasks
+          tasks: this.tasks,
+          key: this.key
         }, {headers: {'Content-Type': 'application/json'}})
           .then((response) => {
             this.successMessage = response.data.message;
