@@ -4,16 +4,20 @@
       <v-card>
 
         <v-card-title primary-title class="layout justify-center">
-          <div class="headline text-xs-center"><b>Add New Project</b></div>
+          <div class="headline text-xs-center"><b>Update Project Details</b></div>
         </v-card-title>
         <div class="layout justify-center">
-          <p class="body-2">Please specify the details of the project you wish to create in the form below.</p>
+          <p class="body-2">Please make the changes you wish to implement in the form below.</p>
+        </div>
+        <div class="layout justify-center">
+          <p class="body-1">Please not that the Project Name and the Client Name cannot be changed.</p>
         </div>
         <v-flex md10 xs12 offset-md1>
           <v-form v-model="valid" ref="project">
             <v-text-field
               label="Project Name"
               v-model="name"
+              disabled
               :rules="nameRules"
               required
             ></v-text-field>
@@ -22,6 +26,7 @@
               label="Client"
               v-model="client"
               :rules="clientRules"
+              disabled
               required
             ></v-text-field>
 
@@ -159,7 +164,7 @@
                   ></v-text-field>
 
                   <v-menu
-                    ref="deadline"
+                    ref="menu3"
                     lazy
                     :close-on-content-click="false"
                     v-model="menu3"
@@ -233,8 +238,8 @@
               <v-btn
                 dark
                 :disabled="!switch1"
-                @click="addProject"
-              >Add Project
+                @click="updateProject"
+              >Update
               </v-btn>
             </div>
 
@@ -262,7 +267,7 @@
     data() {
       return {
         valid: false,
-        name: '',
+        name: null,
         nameRules: [
           (v) => !!v || 'Project name is required',
         ],
@@ -303,7 +308,11 @@
         switch1: false,
         successCond: false,
         failCond: false,
-        successMessage: ""
+        successMessage: "",
+
+        localProject: JSON.parse(localStorage.getItem('project')),
+        key: '',
+        project: {}
 
       }
     },
@@ -343,7 +352,7 @@
         this.user = null;
       },
 
-      addProject() {
+      updateProject() {
         axios.post("http://localhost:3000/project/addProject", {
           name: this.name,
           client: this.client,
@@ -368,11 +377,37 @@
             this.failCond = true;
             console.log(error);
           })
-      }
+      },
+
+      getProject() {
+        axios.post("http://localhost:3000/project/getCurrentProject",
+          {
+            name: this.localProject.Name
+          },
+          {"headers": {'Content-Type': 'application/json'}})
+          .then((response) => {
+            var key = response.data.key;
+            console.log(response.data.project[key]);
+            var project = response.data.project[key];
+            this.name = project.Name;
+            this.client = project.Client;
+            this.description = project.Description;
+            this.startDate = project.StartDate;
+            this.endDate = project.EndDate;
+            this.tasks = project.Tasks;
+            this.techs = project.Technologies;
+            this.key = key;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
     },
 
     mounted() {
-      this.getUsers()
+      this.getUsers();
+      this.getProject();
+
     }
   }
 

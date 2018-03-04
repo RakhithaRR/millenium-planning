@@ -159,7 +159,7 @@
                   ></v-text-field>
 
                   <v-menu
-                    ref="deadline"
+                    ref="menu3"
                     lazy
                     :close-on-content-click="false"
                     v-model="menu3"

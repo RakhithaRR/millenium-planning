@@ -202,8 +202,8 @@
       },
 
       getEvents() {
-        for(var i in this.project.Tasks){
-          if(this.project.Tasks.hasOwnProperty(i)){
+        for (var i in this.project.Tasks) {
+          if (this.project.Tasks.hasOwnProperty(i)) {
             var obj = this.project.Tasks[i];
             this.events.push(obj.deadline);
           }
@@ -218,9 +218,7 @@
 
     },
 
-    computed: {
-
-    }
+    computed: {}
   }
 
 </script>
