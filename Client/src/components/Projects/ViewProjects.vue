@@ -153,6 +153,8 @@
           </v-flex>
         </v-card-title>
       </v-card>
+
+
     </v-flex>
 
   </v-content>
@@ -272,4 +274,28 @@
 
 </script>
 
-
+<!--<div class="chatbox">-->
+  <!--<div class="chatlogs">-->
+    <!--<div v-for="item in anArray">-->
+      <!--<span class="chat-name">{{item.name}}</span>-->
+      <!--<div class="chat friend">-->
+        <!--<img class="user-photo" v-bind:src="item.photo_url" />-->
+        <!--<div class="chat-message">-->
+          <!--<p>{{item.message}} </p>-->
+          <!--<p>-->
+            <!--<span class="chat-time"> {{item.timestamp | formatDate}}</span>-->
+          <!--</p>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<form @submit.prevent="addComment">-->
+    <!--<div class="chat-form">-->
+      <!--<v-text-field-->
+        <!--label="Label Text"-->
+        <!--multi-line-->
+      <!--&gt;</v-text-field>-->
+      <!--<v-btn>Send</v-btn>-->
+    <!--</div>-->
+  <!--</form>-->
+<!--</div>-->
