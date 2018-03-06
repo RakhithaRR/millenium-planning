@@ -27,14 +27,46 @@
 
         <div class="layout justify-center">
           <v-progress-circular
+            :size="100"
+            :width="10"
+            :rotate="-90"
+            :value="getCompletion(project).op"
+            color="red"
+            class="mt-4 mb-2 mr-2"
+          >
+            <div class="layout justify-center">
+              {{getCompletion(project).overdue}}
+            </div>
+            <div>
+              overdue
+            </div>
+          </v-progress-circular>
+
+          <v-progress-circular
             :size="150"
             :width="10"
             :rotate="-90"
-            :value="getCompletion(project)"
+            :value="getCompletion(project).overall"
             color="teal"
             class="mt-2 mb-2"
           >
-            {{getCompletion(project)}}%
+            {{getCompletion(project).overall}}%
+          </v-progress-circular>
+
+          <v-progress-circular
+            :size="100"
+            :width="10"
+            :rotate="-90"
+            :value="getCompletion(project).overall"
+            color="green"
+            class="mt-4 mb-2 ml-2"
+          >
+            <div class="layout justify-center">
+              {{getCompletion(project).completed}}
+            </div>
+            <div>
+              completed
+            </div>
           </v-progress-circular>
         </div>
         <div>
@@ -168,14 +200,28 @@
           nTasks++
         }
         var counter = 0;
+        var overdue = 0;
         for (var i in cProject.Tasks) {
           var obj = cProject.Tasks[i];
           if (obj.status) {
             counter++
           }
+          else{
+            if(this.compareDates(obj.deadline)){
+              overdue++
+            }
+          }
         }
 
-        return Math.floor((counter / nTasks) * 100);
+        var overall = Math.floor((counter / nTasks) * 100);
+        var overduePercentage = Math.floor((overdue/nTasks)*100);
+
+        return {
+          overall: overall,
+          overdue: overdue,
+          completed: counter,
+          op: overduePercentage
+        }
       },
 
       markCompletion(index, status) {

@@ -13,7 +13,7 @@ router.get('/check', function(req, res, next) {
 });
 
 
-//controller for registering a new user in the system
+//model for registering a new user in the system
 router.post('/register', (req,res,next) => {
 
     var userRef = firebase.database.ref('users');
@@ -56,7 +56,7 @@ router.post('/register', (req,res,next) => {
 });
 
 
-//controller for logging in to the system
+//model for logging in to the system
 router.post('/login', (req,res) => {
 
    var userRef = firebase.database.ref('users');
@@ -85,7 +85,7 @@ router.post('/login', (req,res) => {
 
 });
 
-//controller for logging out a user from the system
+//model for logging out a user from the system
 router.post('/logout',(req,res,next) => {
     firebase.authentication.signOut()
         .then(() => {
@@ -97,7 +97,7 @@ router.post('/logout',(req,res,next) => {
         });
 });
 
-//controller for updating the user password for an existing user.
+//model for updating the user password for an existing user.
 router.post('/update', (req,res,next) => {
 
     var user = req.body.auth;

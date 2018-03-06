@@ -16,7 +16,7 @@ router.get('/getUsers', (req, res, next) => {
     })
 });
 
-//controller for adding a new project to the system.
+//model for adding a new project
 router.post('/addProject', (req, res, next) => {
     var projectKey = firebase.database.ref().child('projects').push().key;
     var projRef = firebase.database.ref('projects');
@@ -39,6 +39,7 @@ router.post('/addProject', (req, res, next) => {
     })
 });
 
+//model for updating a project
 router.post('/updateProject', (req, res, next) => {
     var projRef = firebase.database.ref('projects');
     var key = req.body.key;
@@ -61,7 +62,7 @@ router.post('/updateProject', (req, res, next) => {
     })
 });
 
-//getting the list of all the projects available in the system
+//model for getting the list of all the projects available in the system
 router.get('/getProjects', (req, res, next) => {
     var projRef = firebase.database.ref('projects');
     projRef.once("value", (snapshot) => {
@@ -69,6 +70,7 @@ router.get('/getProjects', (req, res, next) => {
     });
 });
 
+//model for getting the details of an individual project
 router.post('/getCurrentProject', (req, res, next) => {
     var projRef = firebase.database.ref('projects');
     projRef.orderByChild('Name').equalTo(req.body.name).once("value", (snapshot) => {
@@ -77,6 +79,7 @@ router.post('/getCurrentProject', (req, res, next) => {
     })
 });
 
+//model to mark completion of a task.
 router.post('/completion', (req, res, next) => {
     var key = req.body.key;
     var index = req.body.index;
