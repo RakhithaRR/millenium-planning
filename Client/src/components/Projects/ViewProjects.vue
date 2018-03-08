@@ -160,40 +160,44 @@
         <h3 class="display-2">{{project.Name}} Discussion</h3>
       </div>
 
-      <v-container
-        class="mt-2 grey lighten-2 scroll-y"
-        style="max-height: 500px"
-      >
-        <div>
-          <v-list two-line>
-            <template v-for="(item, index) in items">
-              <v-list-tile
-                @click="toggle(index)"
-                :key="item.title"
-              >
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                  <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
-                  <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
-                </v-list-tile-action>
-              </v-list-tile>
-              <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>
-            </template>
-          </v-list>
-        </div>
-      </v-container>
-      <div class="layout row">
-        <v-flex md11>
-          <v-text-field></v-text-field>
-        </v-flex>
-        <v-flex md1>
-          <div class="text-xs-right">
-            <v-btn>Send</v-btn>
+      <div class="grey lighten-4">
+        <v-container
+          class="mt-2 scroll-y"
+          style="max-height: 500px"
+        >
+          <div>
+            <v-list two-line>
+              <template v-for="(item, index) in items">
+                <v-list-tile
+                  @click="toggle(index)"
+                  :key="item.title"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                  <v-list-tile-action>
+                    <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
+                  </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>
+              </template>
+            </v-list>
           </div>
-        </v-flex>
+        </v-container>
+        <div class="layout row">
+          <v-flex md11>
+            <v-text-field
+              label="Enter your message here"
+            ></v-text-field>
+          </v-flex>
+          <v-flex md1>
+            <div class="text-xs-right">
+              <v-btn>Send</v-btn>
+            </div>
+          </v-flex>
+        </div>
       </div>
 
     </v-flex>
@@ -215,38 +219,7 @@
         date1: new Date(Date.now()).toISOString().slice(0, 10),
         events: [],
 
-        items: [
-          {
-            action: '15 min',
-            headline: 'Brunch this weekend?',
-            title: 'Ali Connors',
-            subtitle: "I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-          },
-          {
-            action: '2 hr',
-            headline: 'Summer BBQ',
-            title: 'me, Scrott, Jennifer',
-            subtitle: "Wish I could come, but I'm out of town this weekend."
-          },
-          {
-            action: '6 hr',
-            headline: 'Oui oui',
-            title: 'Sandra Adams',
-            subtitle: 'Do you have Paris recommendations? Have you ever been?'
-          },
-          {
-            action: '12 hr',
-            headline: 'Birthday gift',
-            title: 'Trevor Hansen',
-            subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
-          },
-          {
-            action: '18hr',
-            headline: 'Recipe to try',
-            title: 'Britta Holt',
-            subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.'
-          }
-        ]
+        messages: []
 
       }
     },

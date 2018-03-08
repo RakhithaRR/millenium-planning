@@ -8,6 +8,7 @@ const firebase = require('./database/database');
 //express setup
 const port = process.env.PORT || 3000;
 const app = express();
+const io = require('socket.io')(app.Server);
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -35,6 +36,14 @@ fireConnection.on("value", (con) =>{
         console.log("Not connected to Firebase!");
     }
 });
+
+//socket.io integration
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+});
+
 
 //starting the server
 app.listen(port, () => {
