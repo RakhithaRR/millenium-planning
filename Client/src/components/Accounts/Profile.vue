@@ -124,7 +124,7 @@
               class="mt-2"
               hover
               tile
-              v-for="(item,index) in projects"
+              v-for="(item,index) in filteredProjects"
               :key="`${index}`"
             >
               <v-card-title primary-title>
@@ -321,6 +321,25 @@
         this.$router.push("/projects/" + projName.Name);
 
       },
+
+
+    },
+
+    computed: {
+      filteredProjects() {
+        return this.projects.filter(project => {
+          for(var i in project.Tasks){
+            if(project.Tasks.hasOwnProperty(i)){
+              var task = project.Tasks[i]
+              if(task.user.toLowerCase().includes(this.user.Username.toLowerCase())){
+                return (task.user.toLowerCase().includes(this.user.Username.toLowerCase()))
+              }
+
+            }
+          }
+
+  })
+      }
     },
 
     mounted() {
