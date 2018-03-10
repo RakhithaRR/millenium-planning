@@ -20,10 +20,14 @@ app.use(bodyParser.json());
 const io = socketIO(server);
 
 //socket.io connection
-io.on('connection',(socket)=>{
-    socket.emit('hello', {
-        greeting: 'Hello Rakhitha'
-    })
+io.on('connection', (socket) => {
+    var projRef = firebase.database.ref('/messages');
+    projRef.once("value", (snapshot) => {
+        socket.emit('hello', {
+            messages: snapshot.val()
+        })
+    });
+
     socket.on('my other event', function (data) {
         console.log(data);
     });
@@ -33,22 +37,22 @@ io.on('connection',(socket)=>{
 const users = require('./routes/user');
 const project = require('./routes/project');
 
-app.use('/users',users);
+app.use('/users', users);
 app.use('/project', project);
 
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
     res.send("Invalid Endpoint");
 });
 
 
 //firebase connection check
 var fireConnection = firebase.database.ref('.info/connected');
-fireConnection.on("value", (con) =>{
-    if(con.val() === true){
+fireConnection.on("value", (con) => {
+    if (con.val() === true) {
         console.log("Connected to Firebase...");
     }
-    else{
+    else {
         console.log("Not connected to Firebase!");
     }
 });

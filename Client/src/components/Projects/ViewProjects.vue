@@ -169,16 +169,15 @@
             <v-list two-line>
               <template v-for="(item, index) in messages">
                 <v-list-tile
-                  @click="toggle(index)"
-                  :key="item.title"
+                  :key="index"
                 >
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    <v-list-tile-title>{{ item.username }}</v-list-tile-title>
                     <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
-                    <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{ item.text }}</v-list-tile-sub-title>
                   </v-list-tile-content>
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>{{ }}</v-list-tile-action-text>
                   </v-list-tile-action>
                 </v-list-tile>
                 <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
@@ -189,12 +188,15 @@
         <div class="layout row">
           <v-flex md11>
             <v-text-field
+              v-model="textMessage"
               label="Enter your message here"
             ></v-text-field>
           </v-flex>
           <v-flex md1>
             <div class="text-xs-right">
-              <v-btn>Send</v-btn>
+              <v-btn
+                @click="startConnection"
+              >Send</v-btn>
             </div>
           </v-flex>
         </div>
@@ -220,6 +222,7 @@
         date1: new Date(Date.now()).toISOString().slice(0, 10),
         events: [],
 
+        textMessage: '',
         messages: []
 
       }
@@ -307,22 +310,29 @@
             this.events.push(obj.deadline);
           }
         }
+      },
+
+      startConnection() {
+        const socket = io('http://localhost:3000');
+        socket.emit('my other event', {username: this.cUser.Username, text: this.textMessage});
+        socket.on('hello', (data) => {
+          console.log(data.messages[0]);
+          this.messages.push(data.messages[0]);
+        });
       }
 
     },
 
     mounted() {
       this.getProject();
-      const socket = io('http://localhost:3000');
-      socket.on('hello', (data) => {
-        console.log(data);
-        socket.emit('my other event', {my: 'data'})
-      });
+      this.startConnection();
 
 
     },
 
-    computed: {}
+    computed: {
+
+    }
   }
 
 </script>
