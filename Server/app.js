@@ -4,14 +4,30 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const firebase = require('./database/database');
+const http = require('http');
+const socketIO = require('socket.io');
 
 //express setup
 const port = process.env.PORT || 3000;
 const app = express();
-const io = require('socket.io')(app.Server);
+const server = http.Server(app);
+server.listen(port, () => {
+    console.log(`Server running on port ${port}.`);
+});
+
 app.use(cors());
 app.use(bodyParser.json());
+const io = socketIO(server);
 
+//socket.io connection
+io.on('connection',(socket)=>{
+    socket.emit('hello', {
+        greeting: 'Hello Rakhitha'
+    })
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
 
 //routes
 const users = require('./routes/user');
@@ -38,14 +54,9 @@ fireConnection.on("value", (con) =>{
 });
 
 //socket.io integration
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-    });
-});
 
 //starting the server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}.`);
-});
-
+// app.listen(port, () => {
+//     console.log(`Server running on port ${port}.`);
+// });
+//

@@ -167,7 +167,7 @@
         >
           <div>
             <v-list two-line>
-              <template v-for="(item, index) in items">
+              <template v-for="(item, index) in messages">
                 <v-list-tile
                   @click="toggle(index)"
                   :key="item.title"
@@ -181,7 +181,7 @@
                     <v-list-tile-action-text>{{ item.action }}</v-list-tile-action-text>
                   </v-list-tile-action>
                 </v-list-tile>
-                <v-divider v-if="index + 1 < items.length" :key="index"></v-divider>
+                <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
               </template>
             </v-list>
           </div>
@@ -207,6 +207,7 @@
 
 <script>
   import axios from 'axios';
+  import io from 'socket.io-client';
 
   export default {
 
@@ -312,6 +313,11 @@
 
     mounted() {
       this.getProject();
+      const socket = io('http://localhost:3000');
+      socket.on('hello', (data) => {
+        console.log(data);
+        socket.emit('my other event', {my: 'data'})
+      });
 
 
     },
