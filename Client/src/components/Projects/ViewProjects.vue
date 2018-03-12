@@ -167,21 +167,19 @@
         >
           <div>
             <v-list two-line>
-              <template v-for="(item, index) in messages">
-                <v-list-tile
-                  :key="index"
-                >
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ item.username }}</v-list-tile-title>
-                    <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
-                    <v-list-tile-sub-title>{{ item.text }}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                  <v-list-tile-action>
-                    <v-list-tile-action-text>{{ }}</v-list-tile-action-text>
-                  </v-list-tile-action>
-                </v-list-tile>
-                <v-divider v-if="index + 1 < messages.length" :key="index"></v-divider>
-              </template>
+              <v-list-tile
+                v-for="(item,index) in messages"
+                :key="`${index}`"
+              >
+                <v-list-tile-content>
+                  <v-list-tile-title>{{index}} - {{ item.username }}</v-list-tile-title>
+                  <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>{{ item.text }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-list-tile-action-text>{{(new Date()).toDateString()}}</v-list-tile-action-text>
+                </v-list-tile-action>
+              </v-list-tile>
             </v-list>
           </div>
         </v-container>
@@ -195,7 +193,7 @@
           <v-flex md1>
             <div class="text-xs-right">
               <v-btn
-                @click="startConnection"
+                @click="sendMessage"
               >Send</v-btn>
             </div>
           </v-flex>
@@ -210,6 +208,7 @@
 <script>
   import axios from 'axios';
   import io from 'socket.io-client';
+  const socket = io.connect('http://localhost:3000');
 
   export default {
 
@@ -223,7 +222,7 @@
         events: [],
 
         textMessage: '',
-        messages: []
+        messages: [{username: 'System', text: 'Project created.'}]
 
       }
     },
@@ -312,26 +311,41 @@
         }
       },
 
-      startConnection() {
-        const socket = io('http://localhost:3000');
-        socket.emit('my other event', {username: this.cUser.Username, text: this.textMessage});
-        socket.on('hello', (data) => {
-          console.log(data.messages[0]);
-          this.messages.push(data.messages[0]);
-        });
+      sendMessage() {
+        console.log("CLICKED");
+        socket.emit('chat', {username: this.cUser.Name, text: this.textMessage});
+
       }
 
     },
 
     mounted() {
       this.getProject();
-      this.startConnection();
+//      this.startConnection();
 
 
     },
 
     computed: {
 
+      receiveMessage(){
+        socket.on('chat', (data) => {
+          console.log(data);
+          console.log(this.messages);
+          this.messages.push(data);
+          return this.messages
+
+//          console.log(data.messages);
+//          for(var i in data.messages){
+//            if(data.messages.hasOwnProperty(i)){
+//              var obj = data.messages[i]
+//              this.messages.push(obj)
+//            }
+//          }
+
+        });
+
+      }
     }
   }
 

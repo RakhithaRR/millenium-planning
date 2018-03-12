@@ -21,16 +21,20 @@ const io = socketIO(server);
 
 //socket.io connection
 io.on('connection', (socket) => {
-    var projRef = firebase.database.ref('/messages');
-    projRef.once("value", (snapshot) => {
-        socket.emit('hello', {
-            messages: snapshot.val()
-        })
+    // var projRef = firebase.database.ref('/messages');
+    // projRef.once("value", (snapshot) => {
+    //     socket.emit('hello', {
+    //         messages: snapshot.val()
+    //     })
+    // });
+    socket.on('chat', (msg) => {
+        console.log(msg)
+        io.emit('chat', msg)
     });
 
-    socket.on('my other event', function (data) {
-        console.log(data);
-    });
+    // socket.on('my other event', function (data) {
+    //     console.log(data);
+    // });
 });
 
 //routes
