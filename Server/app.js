@@ -21,16 +21,18 @@ const io = socketIO(server);
 
 //socket.io connection
 io.on('connection', (socket) => {
-    // var projRef = firebase.database.ref('/messages');
-    // projRef.once("value", (snapshot) => {
-    //     socket.emit('hello', {
-    //         messages: snapshot.val()
-    //     })
-    // });
+    var projRef = firebase.database.ref('/messages');
     socket.on('chat', (msg) => {
-        console.log(msg)
+        // console.log(msg);
+        projRef.push(msg);
+        // projRef.orderByChild('date').limitToLast(1).on('child_added', (snapshot,prevKey) => {
+        //     console.log('wewewewewew');
+        //     // console.log(snapshot.val());
+        //     io.emit(snapshot.val());
+        // });
         io.emit('chat', msg)
     });
+
 
     // socket.on('my other event', function (data) {
     //     console.log(data);
