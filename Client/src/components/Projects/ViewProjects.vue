@@ -186,6 +186,8 @@
         <div class="layout row">
           <v-flex md11>
             <v-text-field
+              ref="msg"
+              clearable
               v-model="textMessage"
               label="Enter your message here"
             ></v-text-field>
@@ -194,7 +196,8 @@
             <div class="text-xs-right">
               <v-btn
                 @click="sendMessage"
-              >Send</v-btn>
+              >Send
+              </v-btn>
             </div>
           </v-flex>
         </div>
@@ -208,7 +211,8 @@
 <script>
   import axios from 'axios';
   import io from 'socket.io-client';
-  const socket = io.connect('http://localhost:3000');
+
+  const socket = io('http://localhost:3000');
 
   export default {
 
@@ -314,24 +318,15 @@
       sendMessage() {
         console.log("CLICKED");
         socket.emit('chat', {username: this.cUser.Name, text: this.textMessage});
-
-      }
-
-    },
-
-    mounted() {
-      this.getProject();
-//      this.startConnection();
+        this.$refs.msg.focus();
+        this.textMessage = "";
 
 
-    },
+      },
 
-    computed: {
-
-      receiveMessage(){
+      receiveMessages() {
         socket.on('chat', (data) => {
           console.log(data);
-          console.log(this.messages);
           this.messages.push(data);
           return this.messages
 
@@ -344,35 +339,24 @@
 //          }
 
         });
-
       }
-    }
+
+
+    },
+
+    mounted() {
+      this.getProject();
+      this.receiveMessages();
+
+//      this.startConnection();
+
+
+    },
+
+    computed: {},
+
   }
 
 </script>
 
-<!--<div class="chatbox">-->
-<!--<div class="chatlogs">-->
-<!--<div v-for="item in anArray">-->
-<!--<span class="chat-name">{{item.name}}</span>-->
-<!--<div class="chat friend">-->
-<!--<img class="user-photo" v-bind:src="item.photo_url" />-->
-<!--<div class="chat-message">-->
-<!--<p>{{item.message}} </p>-->
-<!--<p>-->
-<!--<span class="chat-time"> {{item.timestamp | formatDate}}</span>-->
-<!--</p>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--<form @submit.prevent="addComment">-->
-<!--<div class="chat-form">-->
-<!--<v-text-field-->
-<!--label="Label Text"-->
-<!--multi-line-->
-<!--&gt;</v-text-field>-->
-<!--<v-btn>Send</v-btn>-->
-<!--</div>-->
-<!--</form>-->
-<!--</div>-->
+
