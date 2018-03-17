@@ -227,7 +227,7 @@
         events: [],
 
         textMessage: '',
-        messages: [{username: 'System', text: 'Project created.'}]
+        messages: []
 
       }
     },
@@ -244,6 +244,7 @@
             this.project = response.data.project[key];
             this.key = key;
             this.getEvents();
+            this.getMessages();
           })
           .catch((error) => {
             console.log(error);
@@ -257,7 +258,12 @@
           },
           {"headers": {'Content-Type': 'application/json'}})
           .then((response) => {
-
+          console.log(response.data);
+            for(var i in response.data){
+              if(response.data.hasOwnProperty(i)){
+                this.messages.push(response.data[i])
+              }
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -361,6 +367,7 @@
 
     mounted() {
       this.getProject();
+//      this.getMessages();
       this.receiveMessages();
 
 //      this.startConnection();

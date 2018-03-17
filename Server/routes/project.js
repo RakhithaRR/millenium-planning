@@ -20,6 +20,7 @@ router.get('/getUsers', (req, res, next) => {
 router.post('/addProject', (req, res, next) => {
     var projectKey = firebase.database.ref().child('projects').push().key;
     var projRef = firebase.database.ref('projects');
+    var messageRef = firebase.database.ref('messages');
 
     projRef.child(projectKey).set({
         Name: req.body.name,
@@ -32,7 +33,18 @@ router.post('/addProject', (req, res, next) => {
         Tasks: req.body.tasks
 
     }).then((result) => {
-        res.send({success: true, message: 'Project added successfully'});
+        messageRef.child(projectKey).push({
+            username: 'System',
+            text: 'Project Created',
+            date: new Date().toISOString()
+        })
+            .then((result) => {
+                res.send({success: true, message: 'Project added successfully'});
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
     }).catch((err) => {
         console.log(err);
         res.send({success: true, message: err.message});
