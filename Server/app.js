@@ -44,9 +44,11 @@ io.sockets.on('connection', (socket) => {
 //routes
 const users = require('./routes/user');
 const project = require('./routes/project');
+const chat = require('./routes/chat');
 
 app.use('/users', users);
 app.use('/project', project);
+app.use('/chats',chat);
 
 
 app.get('/', (req, res) => {

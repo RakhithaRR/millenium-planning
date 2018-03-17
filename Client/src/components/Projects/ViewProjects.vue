@@ -176,7 +176,8 @@
                   <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-list-tile-action-text>{{getTime(item.date) +" "+new Date(item.date).toDateString() }}</v-list-tile-action-text>
+                  <v-list-tile-action-text>{{getTime(item.date) + " " + new Date(item.date).toDateString() }}
+                  </v-list-tile-action-text>
                 </v-list-tile-action>
               </v-list-tile>
             </v-list>
@@ -249,6 +250,20 @@
           });
       },
 
+      getMessages() {
+        axios.post("http://localhost:3000/chats/getMessages",
+          {
+            key: this.key
+          },
+          {"headers": {'Content-Type': 'application/json'}})
+          .then((response) => {
+
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+
       getCompletion(cProject) {
 
         var nTasks = 0;
@@ -315,14 +330,17 @@
         }
       },
 
-      getTime(dateString){
+      getTime(dateString) {
         var d = new Date(dateString);
-        return d.getHours()+":"+d.getMinutes()
+        return d.getHours() + ":" + d.getMinutes()
       },
 
       sendMessage() {
         console.log("CLICKED");
-        socket.emit('chat', {msg:{username: this.cUser.Name, text: this.textMessage, date: new Date()}, key: this.key});
+        socket.emit('chat', {
+          msg: {username: this.cUser.Name, text: this.textMessage, date: new Date()},
+          key: this.key
+        });
         this.$refs.msg.focus();
         this.textMessage = "";
 
@@ -334,14 +352,6 @@
           console.log(data);
           this.messages.push(data);
           return this.messages
-
-//          console.log(data.messages);
-//          for(var i in data.messages){
-//            if(data.messages.hasOwnProperty(i)){
-//              var obj = data.messages[i]
-//              this.messages.push(obj)
-//            }
-//          }
 
         });
       }
