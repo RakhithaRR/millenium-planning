@@ -330,7 +330,7 @@
       },
 
       receiveMessages() {
-        socket.on('chat', (data) => {
+        socket.on('message', (data) => {
           console.log(data);
           this.messages.push(data);
           return this.messages

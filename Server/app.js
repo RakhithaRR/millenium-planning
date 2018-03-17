@@ -20,16 +20,17 @@ app.use(bodyParser.json());
 const io = socketIO(server);
 
 //socket.io connection
-io.on('connection', (socket) => {
+io.sockets.on('connection', (socket) => {
 
     socket.on('chat', (info) => {
+        socket.join(info.key);
         // console.log(msg);
-        var projRef = firebase.database.ref('/messages/'+info.key);
+        var projRef = firebase.database.ref('/messages/' + info.key);
         projRef.push(info.msg);
         projRef.once('child_added', (snapshot, prevKey) => {
-            console.log('wewewewewew');
+            console.log('Getting data from: ' + info.key);
             console.log(snapshot.val());
-            io.emit('chat', snapshot.val());
+            io.sockets.in(info.key).emit('message', snapshot.val());
         });
         // io.emit('chat', msg)
     });
