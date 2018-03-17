@@ -11,7 +11,6 @@ router.post('/getMessages',(req,res,next) =>{
     var chatRef = firebase.database.ref('messages/'+key);
 
     chatRef.orderByChild('date').once('value', (snapshot)=> {
-        console.log('lolololol');
         res.send(snapshot.val());
     })
 });

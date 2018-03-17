@@ -30,6 +30,7 @@ io.sockets.on('connection', (socket) => {
         projRef.once('child_added', (snapshot, prevKey) => {
             console.log('Getting data from: ' + info.key);
             console.log(snapshot.val());
+            // socket.broadcast.to(info.key).emit('message', snapshot.val());
             io.sockets.in(info.key).emit('message', snapshot.val());
         });
         // io.emit('chat', msg)
@@ -48,7 +49,7 @@ const chat = require('./routes/chat');
 
 app.use('/users', users);
 app.use('/project', project);
-app.use('/chats',chat);
+app.use('/chats', chat);
 
 
 app.get('/', (req, res) => {

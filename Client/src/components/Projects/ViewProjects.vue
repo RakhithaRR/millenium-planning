@@ -220,12 +220,13 @@
   import axios from 'axios';
   import io from 'socket.io-client';
 
-  const socket = io('http://localhost:3000');
+
 
   export default {
 
     data() {
       return {
+        socket: '',
         localProject: JSON.parse(localStorage.getItem('project')),
         key: '',
         project: {},
@@ -355,8 +356,7 @@
       },
 
       sendMessage() {
-        console.log("CLICKED");
-        socket.emit('chat', {
+        this.socket.emit('chat', {
           msg: {username: this.cUser.Name, text: this.textMessage, date: new Date()},
           key: this.key
         });
@@ -367,7 +367,7 @@
       },
 
       receiveMessages() {
-        socket.on('message', (data) => {
+        this.socket.on('message', (data) => {
           console.log(data);
           this.messages.push(data);
           return this.messages
@@ -379,6 +379,7 @@
     },
 
     mounted() {
+      this.socket = io('http://localhost:3000');
       this.getProject();
 //      this.getMessages();
       this.receiveMessages();
