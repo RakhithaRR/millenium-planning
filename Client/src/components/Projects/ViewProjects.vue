@@ -157,20 +157,26 @@
       <br>
       <br>
       <div>
-        <h3 class="display-2">{{project.Name}} Discussion</h3>
-      </div>
+        <v-toolbar color="teal" dark>
+          <v-toolbar-title><h3 class="display-1">{{project.Name}} Discussion</h3></v-toolbar-title>
+          <v-spacer></v-spacer>
 
-      <div class="grey lighten-4">
+        </v-toolbar>
         <v-container
           class="mt-2 scroll-y"
           style="max-height: 500px"
         >
+
           <div>
             <v-list two-line>
               <v-list-tile
                 v-for="(item,index) in messages"
                 :key="`${index}`"
+                avatar
               >
+                <v-list-tile-avatar>
+                  <img src="/../../../static/youngAvatar.jpg" alt="">
+                </v-list-tile-avatar>
                 <v-list-tile-content>
                   <v-list-tile-sub-title>~{{ item.username }}~</v-list-tile-sub-title>
                   <v-list-tile-title>{{ item.text }}</v-list-tile-title>
@@ -187,6 +193,7 @@
           <v-flex md11>
             <v-text-field
               ref="msg"
+              color="teal"
               clearable
               v-model="textMessage"
               label="Enter your message here"
@@ -258,9 +265,9 @@
           },
           {"headers": {'Content-Type': 'application/json'}})
           .then((response) => {
-          console.log(response.data);
-            for(var i in response.data){
-              if(response.data.hasOwnProperty(i)){
+            console.log(response.data);
+            for (var i in response.data) {
+              if (response.data.hasOwnProperty(i)) {
                 this.messages.push(response.data[i])
               }
             }
@@ -338,7 +345,13 @@
 
       getTime(dateString) {
         var d = new Date(dateString);
-        return d.getHours() + ":" + d.getMinutes()
+        if (d.getMinutes().toString().length === 1) {
+          return d.getHours() + ":0" + d.getMinutes()
+        }
+        else {
+          return d.getHours() + ":" + d.getMinutes()
+        }
+
       },
 
       sendMessage() {
