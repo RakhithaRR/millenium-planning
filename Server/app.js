@@ -21,10 +21,11 @@ const io = socketIO(server);
 
 //socket.io connection
 io.on('connection', (socket) => {
-    var projRef = firebase.database.ref('/messages');
-    socket.on('chat', (msg) => {
+
+    socket.on('chat', (info) => {
         // console.log(msg);
-        projRef.push(msg);
+        var projRef = firebase.database.ref('/messages/'+info.key);
+        projRef.push(info.msg);
         projRef.once('child_added', (snapshot, prevKey) => {
             console.log('wewewewewew');
             console.log(snapshot.val());

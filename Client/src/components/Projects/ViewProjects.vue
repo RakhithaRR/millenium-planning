@@ -172,8 +172,8 @@
                 :key="`${index}`"
               >
                 <v-list-tile-content>
-                  <v-list-tile-title>{{index}} - {{ item.username }}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{ item.text }}</v-list-tile-sub-title>
+                  <v-list-tile-sub-title>~{{ item.username }}~</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-list-tile-action-text>{{getTime(item.date) +" "+new Date(item.date).toDateString() }}</v-list-tile-action-text>
@@ -195,6 +195,7 @@
             <div class="text-xs-right">
               <v-btn
                 @click="sendMessage"
+                :disabled="!textMessage"
               >Send
               </v-btn>
             </div>
@@ -321,7 +322,7 @@
 
       sendMessage() {
         console.log("CLICKED");
-        socket.emit('chat', {username: this.cUser.Name, text: this.textMessage, date: new Date()});
+        socket.emit('chat', {msg:{username: this.cUser.Name, text: this.textMessage, date: new Date()}, key: this.key});
         this.$refs.msg.focus();
         this.textMessage = "";
 
