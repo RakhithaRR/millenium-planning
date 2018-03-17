@@ -25,12 +25,12 @@ io.on('connection', (socket) => {
     socket.on('chat', (msg) => {
         // console.log(msg);
         projRef.push(msg);
-        // projRef.orderByChild('date').limitToLast(1).on('child_added', (snapshot,prevKey) => {
-        //     console.log('wewewewewew');
-        //     // console.log(snapshot.val());
-        //     io.emit(snapshot.val());
-        // });
-        io.emit('chat', msg)
+        projRef.once('child_added', (snapshot, prevKey) => {
+            console.log('wewewewewew');
+            console.log(snapshot.val());
+            io.emit('chat', snapshot.val());
+        });
+        // io.emit('chat', msg)
     });
 
 
