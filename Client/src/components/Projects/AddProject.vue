@@ -225,6 +225,7 @@
             <br v-show="tasks.length>0">
             <p>Please confirm that the above information is correct.</p>
             <v-switch
+              v-show="tasks.length >= 1"
               color="green"
               v-model="switch1"
             ></v-switch>
@@ -232,7 +233,7 @@
             <div class="layout justify-center">
               <v-btn
                 dark
-                :disabled="!switch1"
+                :disabled="!switch1 || tasks.length === 0"
                 @click="addProject"
               >Add Project
               </v-btn>
