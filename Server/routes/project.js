@@ -10,7 +10,7 @@ const firebase = require('../database/database');
 //getting the details of all the users in the system
 router.get('/getUsers', (req, res, next) => {
     var userRef = firebase.database.ref('users');
-    userRef.orderByChild("Type").equalTo('Admin').once("value", (snapshot) => {
+    userRef.orderByChild("Type").equalTo('Normal User').once("value", (snapshot) => {
         // console.log(snapshot.val());
         res.send(snapshot.val())
     })

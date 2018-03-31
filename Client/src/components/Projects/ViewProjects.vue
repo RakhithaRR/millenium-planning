@@ -19,10 +19,14 @@
         </div>
 
         <div class="layout justify-center mt-2 mb-2">
-          <v-chip v-for="(item,index) in project.Technologies" :key="`${index}`">
-            <v-avatar class="teal"><b>{{item[0]}}</b></v-avatar>
-            {{item}}
-          </v-chip>
+          <v-layout row>
+            <v-flex xs12>
+              <v-chip v-for="(item,index) in project.Technologies" :key="`${index}`">
+                <v-avatar class="teal"><b>{{item[0]}}</b></v-avatar>
+                {{item}}
+              </v-chip>
+            </v-flex>
+          </v-layout>
         </div>
 
         <div class="layout justify-center">
@@ -168,25 +172,30 @@
         >
 
           <div>
-            <v-list two-line>
-              <v-list-tile
-                v-for="(item,index) in messages"
-                :key="`${index}`"
-                avatar
-              >
-                <v-list-tile-avatar>
-                  <img src="/../../../static/youngAvatar.jpg" alt="">
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                  <v-list-tile-sub-title>~{{ item.username }}~</v-list-tile-sub-title>
-                  <v-list-tile-title>{{ item.text }}</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-action>
-                  <v-list-tile-action-text>{{getTime(item.date) + " " + new Date(item.date).toDateString() }}
-                  </v-list-tile-action-text>
-                </v-list-tile-action>
-              </v-list-tile>
-            </v-list>
+            <v-layout row>
+              <v-flex xs12>
+                <v-list three-line>
+                  <v-list-tile
+                    v-for="(item,index) in messages"
+                    :key="`${index}`"
+                    avatar
+                  >
+                    <v-list-tile-avatar class="hidden-xs-only">
+                      <img src="/../../../static/youngAvatar.jpg" alt="">
+                    </v-list-tile-avatar>
+                    <v-list-tile-content>
+                      <v-list-tile-sub-title>~{{ item.username }}~</v-list-tile-sub-title>
+                      <v-list-tile-sub-title class="hidden-sm-and-up">{{getTime(item.date) + " " + new Date(item.date).toDateString() }}</v-list-tile-sub-title>
+                      <p class="body-2 multi-line">{{ item.text }}</p>
+                    </v-list-tile-content>
+                    <v-list-tile-action class="hidden-xs-only">
+                      <v-list-tile-action-text>{{new Date(item.date).toDateString()}}</v-list-tile-action-text>
+                      <v-list-tile-action-text>{{getTime(item.date)}}</v-list-tile-action-text>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                </v-list>
+              </v-flex>
+            </v-layout>
           </div>
         </v-container>
         <div class="layout row">
@@ -260,6 +269,7 @@
       },
 
       getMessages() {
+        var messageArray = [];
         axios.post("http://localhost:3000/chats/getMessages",
           {
             key: this.key
@@ -269,9 +279,10 @@
             console.log(response.data);
             for (var i in response.data) {
               if (response.data.hasOwnProperty(i)) {
-                this.messages.push(response.data[i])
+                messageArray.push(response.data[i])
               }
             }
+            this.messages = messageArray;
           })
           .catch((error) => {
             console.log(error);
