@@ -19,14 +19,10 @@
         </div>
 
         <div class="layout justify-center mt-2 mb-2">
-          <v-layout row>
-            <v-flex xs12>
-              <v-chip v-for="(item,index) in project.Technologies" :key="`${index}`">
-                <v-avatar class="teal"><b>{{item[0]}}</b></v-avatar>
-                {{item}}
-              </v-chip>
-            </v-flex>
-          </v-layout>
+          <v-chip v-for="(item,index) in project.Technologies" :key="`${index}`">
+            <v-avatar class="teal"><b>{{item[0]}}</b></v-avatar>
+            {{item}}
+          </v-chip>
         </div>
 
         <div class="layout justify-center">
