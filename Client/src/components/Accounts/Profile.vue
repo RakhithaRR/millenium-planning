@@ -120,6 +120,9 @@
             <div class="layout justify-center">
               <h2 class="display-1"><b>My Projects</b></h2>
             </div>
+            <div class="layout justify-center">
+              <h4 class="body-2">No. of projects involved: {{filteredProjects.length}}</h4>
+            </div>
             <v-card
               class="mt-2"
               hover

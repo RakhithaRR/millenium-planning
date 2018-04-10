@@ -233,7 +233,7 @@
             <div class="layout justify-center">
               <v-btn
                 dark
-                :disabled="!switch1 || tasks.length === 0"
+                :disabled="!switch1 || tasks.length === 0 || !valid"
                 @click="addProject"
               >Add Project
               </v-btn>
